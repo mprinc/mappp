@@ -1,6 +1,15 @@
 speedr = {}
 
-speedr.binarySearch = (arr, val, exactOnly = false) ->
+getKeys = Object.keys or (obj) ->
+	if obj != Object(obj)
+		throw new Error 'No keys for non-object'
+	keys = []
+	for k of obj
+		if hasOwnProperty.call(obj, k)
+			keys[keys.length] = k
+	return keys
+
+binarySearch = (arr, val, exactOnly = false) ->
 	h = arr.length
 	l = -1
 	while h - l > 1
