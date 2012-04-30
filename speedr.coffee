@@ -1,6 +1,6 @@
 speedr = {}
 
-getKeys = Object.keys or (obj) ->
+speedr.getKeys = Object.keys or (obj) ->
 	if obj != Object(obj)
 		throw new Error 'No keys for non-object'
 	keys = []
@@ -9,7 +9,7 @@ getKeys = Object.keys or (obj) ->
 			keys[keys.length] = k
 	return keys
 
-binarySearch = (arr, val, exactOnly = false) ->
+speedr.binarySearch = (arr, val, exactOnly = false) ->
 	h = arr.length
 	l = -1
 	while h - l > 1
@@ -20,7 +20,7 @@ binarySearch = (arr, val, exactOnly = false) ->
 		else return -1
 	else return h
 
-equals = (a, b) ->
+speedr.equals = (a, b) ->
 	if typeOf(a) != typeOf(b) then return false
 	if typeOf(a) == 'array'
 		if a.length != b.length then return false
@@ -33,7 +33,7 @@ equals = (a, b) ->
 	else return a == b
 	return true
 		
-flexiSlice = (obj, start, end) ->
+speedr.flexiSlice = (obj, start, end) ->
 	if typeOf(obj) == 'array' then temp = [] else temp = ''
 	if not end?
 		if start >= 0 then end = obj.length
