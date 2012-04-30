@@ -20,7 +20,7 @@ binarySearch = (arr, val, exactOnly = false) ->
 		else return -1
 	else return h
 
-speedr.equals = (a, b) ->
+equals = (a, b) ->
 	if typeOf(a) != typeOf(b) then return false
 	if typeOf(a) == 'array'
 		if a.length != b.length then return false
@@ -33,7 +33,7 @@ speedr.equals = (a, b) ->
 	else return a == b
 	return true
 		
-speedr.flexiSlice = (obj, start, end) ->
+flexiSlice = (obj, start, end) ->
 	if typeOf(obj) == 'array' then temp = [] else temp = ''
 	if not end?
 		if start >= 0 then end = obj.length
@@ -49,20 +49,28 @@ speedr.flexiSlice = (obj, start, end) ->
 		else
 			if i >= 0 then temp += obj[i]
 			else temp += obj[obj.length + i]
-	temp
+	return temp
 
 # an improved table that keeps track of its length efficiently
 # and provides easy, fast iteration
 class speedr.Table
 	constructor: (@items = {}) ->
-		getterSetter(@, 'length')
+		if not @ instanceof arguments.callee
+			throw new Error '''Constructor called as a function.  
+							   Use 'new' for instantiating classes.'''
+							   	
 		if typeOf(@items) != 'object'
-			throw 'Table requires an object'
+			throw 'Table requires an object for construction.'
+			
 		@keys = Object.keys(@items)
+		@length = @keys.length
+		
 	get_length: -> @keys.length
 	set_length: ->
+		
 	get: (key) ->
 		return @items[key]
+		
 	set: (obj, others...) ->
 		pushPair = (key, val) =>
 			if not @items[key]?
@@ -78,17 +86,21 @@ class speedr.Table
 			for i in [1...others.length] by 2
 				pushPair(others[i], others[i + 1])
 		@items
+		
 	remove: (key) ->
 		if @items[key]?
 			delete @items[key]
 			Array.remove(@keys, key)
 		@items
+		
 	iter: (counter) ->
 		return [@keys[counter], @items[@keys[counter]]]
 	iterK: (counter) -> @keys[counter]
 	iterV: (counter) -> @items[@keys[counter]]
+	
 	hasKey: (key) ->
 		@items[key]?
+		
 	hasVal: (val) ->
 		result = false
 		for i in [0...@length]
@@ -96,24 +108,26 @@ class speedr.Table
 				result = true
 				break
 		return result
+		
 	clear: ->
 		@items = {}
 		@keys = []
 		
-# a table that is sorted upon insertion.  multiple values can be stored
-# under a single key.  thus, item removal requires both the key *and* the
-# value for if the value is something like a closs instance.
+# a table that is sorted upon insertion.  multiple values can be
+# stored under a single key.  thus, item removal requires both
+# the key *and* the value for if the value is something like a 
+# class instance.
 class speedr.SortedTable
 	constructor: () ->
-		getterSetter(@, 'length')
 		@keys = []
 		@vals = []
-	get_length: -> @keys.length
-	set_length: ->
+		@length = 0
+		
 	insert: (key, val) ->
 		i = binarySearch(@keys, key)
 		@keys.splice(i, 0, key)
 		@vals.splice(i, 0, val)
+		
 	remove: (key, val) ->
 		if not key? then return
 		i = binarySearch(@keys, key)
@@ -128,9 +142,11 @@ class speedr.SortedTable
 				j--
 		@keys.splice(i, 1)
 		@vals.splice(i, 1)
+		
 	pop: ->
 		@keys.pop()
 		@vals.pop()
+		
 	# note that these iterate from the top down
 	# (from smaller to larger)
 	iter: (counter) ->
