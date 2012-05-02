@@ -53,21 +53,21 @@ test 'Table 5', blah.length, 5
 test 'Table 6', blah.hasVal('yoje'), true
 test 'Table 7', blah.hasVal('yaaaje'), false
 
-# # binarySearch
-# sorty = new speedr.SortedTable()
-# len = 1000
-# for i in [0...len]
-# 	t = rambo(10000000) / rambo(1000)
-# 	sorty.insert(t, 0)
-# 	if chance(5) then sorty.remove(t)
-# 	if chance(5) then sorty.insert(t, 0)
-# results = []
-# for i in [0...sorty.length]
-# 	results.splice(0, 0, sorty.iterK(i))
-# for i in [0...results.length]
-# 	if (results[i - 1]? and not (results[i] <= results[i - 1])) or
-# 		(results[i + 1]? and not (results[i] >= results[i + 1]))
-# 			echo "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
+# sortedTable
+sorty = new speedr.SortedTable()
+len = 1000
+for i in [0...len]
+	t = rambo(10000000) / rambo(1000)
+	sorty.insert(t, 0)
+	if chance(5) then sorty.remove(t)
+	if chance(5) then sorty.insert(t, 0)
+results = []
+for i in [0...sorty.length]
+	results.splice(0, 0, sorty.iterK(i))
+for i in [0...results.length]
+	if (results[i - 1]? and not (results[i] <= results[i - 1])) or
+		(results[i + 1]? and not (results[i] >= results[i + 1]))
+			console.log "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
 
 
 console.log "** #{testCount} tests completed **"
