@@ -1,4 +1,6 @@
 speedr = {}
+if module? and exports?
+	module.exports = speedr
 
 speedr.getKeys = Object.keys or (obj) ->
 	if obj != Object(obj)
