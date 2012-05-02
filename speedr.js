@@ -91,31 +91,31 @@ speedr.flexiSlice = function(obj, start, end) {
   return temp;
 };
 
-speedr.Table = (function() {
+speedr.Map = (function() {
 
-  Table.name = 'Table';
+  Map.name = 'Map';
 
-  function Table(items) {
+  function Map(items) {
     this.items = items != null ? items : {};
     if (!this instanceof arguments.callee) {
       throw new Error('Constructor called as a function.  \nUse \'new\' for instantiating classes.');
     }
     if (this.items !== Object(this.items)) {
-      throw 'Table requires an object for construction.';
+      throw 'Map requires an object for construction.';
     }
     this.keys = Object.keys(this.items);
     this.updateLength();
   }
 
-  Table.prototype.updateLength = function() {
+  Map.prototype.updateLength = function() {
     return this.length = this.keys.length;
   };
 
-  Table.prototype.get = function(key) {
+  Map.prototype.get = function(key) {
     return this.items[key];
   };
 
-  Table.prototype.set = function() {
+  Map.prototype.set = function() {
     var i, key, obj, others, pushPair, val, _i, _ref,
       _this = this;
     obj = arguments[0], others = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
@@ -140,7 +140,7 @@ speedr.Table = (function() {
     return this.items;
   };
 
-  Table.prototype.remove = function(key) {
+  Map.prototype.remove = function(key) {
     if (this.items[key] != null) {
       delete this.items[key];
       Array.remove(this.keys, key);
@@ -149,23 +149,23 @@ speedr.Table = (function() {
     return this.items;
   };
 
-  Table.prototype.iter = function(counter) {
+  Map.prototype.iter = function(counter) {
     return [this.keys[counter], this.items[this.keys[counter]]];
   };
 
-  Table.prototype.iterK = function(counter) {
+  Map.prototype.iterK = function(counter) {
     return this.keys[counter];
   };
 
-  Table.prototype.iterV = function(counter) {
+  Map.prototype.iterV = function(counter) {
     return this.items[this.keys[counter]];
   };
 
-  Table.prototype.hasKey = function(key) {
+  Map.prototype.hasKey = function(key) {
     return this.items[key] != null;
   };
 
-  Table.prototype.hasVal = function(val) {
+  Map.prototype.hasVal = function(val) {
     var i, result, _i, _ref;
     result = false;
     for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
@@ -177,13 +177,13 @@ speedr.Table = (function() {
     return result;
   };
 
-  Table.prototype.clear = function() {
+  Map.prototype.clear = function() {
     this.items = {};
     this.keys = [];
     return this.updateLength();
   };
 
-  return Table;
+  return Map;
 
 })();
 
