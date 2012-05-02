@@ -10,11 +10,52 @@ bench = (name, f) ->
 # make test objects
 obj = {}
 map = new speedr.Map()
-for i in [0..100]
-	obj[i.toString()] = i
-	map.set(i.toString(), i)
+for i in [0..1000000]
+	iS = i.toString()
+	obj[iS] = iS
+	map.set(iS, iS)
 
-copy = {}
+counter = 0
 bench 'Normal object for loop (keys only)', ->
 	for k of obj
-		copy[k] = obj[k]
+		counter++
+		
+counter = 0
+bench 'Normal object for loop (keys and values)', ->
+	for k, v of obj
+		counter++
+		
+counter = 0
+bench 'speedr.js map eachKey function', ->
+	map.eachKey (k) ->
+		counter++
+		
+counter = 0
+bench 'speedr.js map eachVal function', ->
+	map.eachVal (v) ->
+		counter++
+		
+counter = 0
+bench 'speedr.js map each function', ->
+	map.each (k,v) ->
+		counter++
+		
+counter = 0
+bench 'speedr.js map iterK function', ->
+	for i in [0...map.length]
+		k = map.iterK(i)
+		counter++
+		
+counter = 0
+bench 'speedr.js map iterV function', ->
+	for i in [0...map.length]
+		v = map.iterV(i)
+		counter++
+
+counter = 0
+bench 'speedr.js map iter function', ->
+	for i in [0...map.length]
+		[k,v] = map.iter(i)
+		counter++
+		
+# add each
