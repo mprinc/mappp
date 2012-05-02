@@ -49,7 +49,7 @@ speedr.binarySearch = function(arr, val, exactOnly) {
 
 speedr.flexiSlice = function(obj, start, end) {
   var i, temp, _i;
-  if (typeOf(obj) === 'array') {
+  if (toString.call(obj) === '[object Array]') {
     temp = [];
   } else {
     temp = '';
@@ -74,7 +74,7 @@ speedr.flexiSlice = function(obj, start, end) {
     start = -obj.length;
   }
   for (i = _i = start; start <= end ? _i < end : _i > end; i = start <= end ? ++_i : --_i) {
-    if (typeOf(obj) === 'array') {
+    if (toString.call(obj) === '[object Array]') {
       if (i >= 0) {
         temp.push(obj[i]);
       } else {
@@ -100,7 +100,7 @@ speedr.Table = (function() {
     if (!this instanceof arguments.callee) {
       throw new Error('Constructor called as a function.  \nUse \'new\' for instantiating classes.');
     }
-    if (typeOf(this.items) !== 'object') {
+    if (this.items === Object(obj)) {
       throw 'Table requires an object for construction.';
     }
     this.keys = Object.keys(this.items);

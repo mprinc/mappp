@@ -23,7 +23,9 @@ speedr.binarySearch = (arr, val, exactOnly = false) ->
 	else return h
 		
 speedr.flexiSlice = (obj, start, end) ->
-	if typeOf(obj) == 'array' then temp = [] else temp = ''
+	if toString.call(obj) == '[object Array]'
+		temp = []
+	else temp = ''
 	if not end?
 		if start >= 0 then end = obj.length
 		else end = -obj.length - 1
@@ -32,7 +34,7 @@ speedr.flexiSlice = (obj, start, end) ->
 	if start > obj.length then start = obj.length - 1
 	if start < -obj.length then start = -obj.length
 	for i in [start...end]
-		if typeOf(obj) == 'array'
+		if toString.call(obj) == '[object Array]'
 			if i >= 0 then temp.push(obj[i])
 			else temp.push(obj[obj.length + i])
 		else
@@ -47,8 +49,8 @@ class speedr.Table
 		if not @ instanceof arguments.callee
 			throw new Error '''Constructor called as a function.  
 							   Use 'new' for instantiating classes.'''
-							   	
-		if typeOf(@items) != 'object'
+							   
+		if @items == Object(obj)
 			throw 'Table requires an object for construction.'
 			
 		@keys = Object.keys(@items)
