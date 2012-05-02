@@ -81,6 +81,19 @@ class speedr.Map
 		@updateLength()
 		@items
 		
+	each: (f) ->
+		for i in [0...@length]
+			[k,v] = @iter(i)
+			f(k,v)
+			
+	eachKey: (f) ->
+		for i in [0...@length]
+			f(@iterK(i))
+			
+	eachVal: (f) ->
+		for i in [0...@length]
+			f(@iterV(i))
+		
 	iter: (counter) ->
 		return [@keys[counter], @items[@keys[counter]]]
 	iterK: (counter) -> @keys[counter]
