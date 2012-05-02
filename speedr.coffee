@@ -50,7 +50,7 @@ class speedr.Table
 			throw new Error '''Constructor called as a function.  
 							   Use 'new' for instantiating classes.'''
 							   
-		if @items == Object(obj)
+		if @items != Object(@items)
 			throw 'Table requires an object for construction.'
 			
 		@keys = Object.keys(@items)
@@ -115,13 +115,13 @@ class speedr.SortedTable
 		@length = 0
 		
 	insert: (key, val) ->
-		i = binarySearch(@keys, key)
+		i = speedr.binarySearch(@keys, key)
 		@keys.splice(i, 0, key)
 		@vals.splice(i, 0, val)
 		
 	remove: (key, val) ->
 		if not key? then return
-		i = binarySearch(@keys, key)
+		i = speedr.binarySearch(@keys, key)
 		if val?
 			j = i - 1
 			while true
