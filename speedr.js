@@ -4,10 +4,6 @@ var speedr,
 
 speedr = {};
 
-if ((typeof module !== "undefined" && module !== null) && (typeof exports !== "undefined" && exports !== null)) {
-  module.exports = speedr;
-}
-
 speedr.getKeys = Object.keys || function(obj) {
   var k, keys;
   if (obj !== Object(obj)) {
@@ -280,3 +276,9 @@ speedr.SortedTable = (function() {
   return SortedTable;
 
 })();
+
+if ((typeof module !== "undefined" && module !== null) && (typeof exports !== "undefined" && exports !== null)) {
+  module.exports = speedr;
+} else {
+  root['speedr'] = speedr;
+}
