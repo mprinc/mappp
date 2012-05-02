@@ -57,5 +57,3 @@ bench 'speedr.js map iter function', ->
 	for i in [0...map.length]
 		[k,v] = map.iter(i)
 		counter++
-		
-# add each
