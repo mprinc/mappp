@@ -115,12 +115,16 @@ class speedr.SortedTable
 	constructor: () ->
 		@keys = []
 		@vals = []
-		@length = 0
+		@updateLength()
+		
+	updateLength: ->
+		@length = @keys.length
 		
 	insert: (key, val) ->
 		i = speedr.binarySearch(@keys, key)
 		@keys.splice(i, 0, key)
 		@vals.splice(i, 0, val)
+		@updateLength()
 		
 	remove: (key, val) ->
 		if not key? then return
@@ -136,10 +140,12 @@ class speedr.SortedTable
 				j--
 		@keys.splice(i, 1)
 		@vals.splice(i, 1)
+		@updateLength()
 		
 	pop: ->
 		@keys.pop()
 		@vals.pop()
+		@updateLength()
 		
 	# note that these iterate from the top down
 	# (from smaller to larger)
