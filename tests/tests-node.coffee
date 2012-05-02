@@ -6,10 +6,22 @@ test = (name, result, expected) ->
 	if not _.isEqual(result, expected)
 		console.log "#{name} FAILED"
 		console.log "Got:      #{result}"
+		if result == Object(result)
+			console.log ("#{i}: #{v}" for i,v of result)
 		console.log "Expected: #{expected}"
+		if expected == Object(expected)
+			console.log ("#{i}: #{v}" for i,v of expected)
 	testCount++
+
+rambo = (min, max) ->
+	if not max? then [max, min] = [min, 0]
+	return Math.floor(Math.random() * (max - min) + min)
+	
+chance = (prob) ->
+	if rambo(100) <= 100 - prob - 1 then return false
+	else return true
 		
-		
+# flexiSlice
 fn = speedr.flexiSlice
 test 'slice 1 ', fn('abcdefg', 2,4), 'cd'
 test 'slice 2 ', fn('abcdefg', 2), 'cdefg'
