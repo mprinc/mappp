@@ -97,9 +97,6 @@ speedr.Map = (function() {
 
   function Map(items) {
     this.items = items != null ? items : {};
-    if (!this instanceof arguments.callee) {
-      throw new Error('Constructor called as a function.  \nUse \'new\' for instantiating classes.');
-    }
     if (this.items !== Object(this.items)) {
       throw 'Map requires an object for construction.';
     }
@@ -147,6 +144,34 @@ speedr.Map = (function() {
     }
     this.updateLength();
     return this.items;
+  };
+
+  Map.prototype.each = function(f) {
+    var i, k, v, _i, _ref, _ref1, _results;
+    _results = [];
+    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      _ref1 = this.iter(i), k = _ref1[0], v = _ref1[1];
+      _results.push(f(k, v));
+    }
+    return _results;
+  };
+
+  Map.prototype.eachKey = function(f) {
+    var i, _i, _ref, _results;
+    _results = [];
+    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      _results.push(f(this.iterK(i)));
+    }
+    return _results;
+  };
+
+  Map.prototype.eachVal = function(f) {
+    var i, _i, _ref, _results;
+    _results = [];
+    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+      _results.push(f(this.iterV(i)));
+    }
+    return _results;
   };
 
   Map.prototype.iter = function(counter) {
