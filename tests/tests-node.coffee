@@ -48,7 +48,7 @@ ass = {}
 for i in [0...blah.length]
 	[k,v] = blah.iter(i)
 	ass[k] = v
-test 'Table 4', blah.items, ass
+test 'Table 4', ass, blah.items
 test 'Table 5', blah.length, 5
 test 'Table 6', blah.hasVal('yoje'), true
 test 'Table 7', blah.hasVal('yaaaje'), false
