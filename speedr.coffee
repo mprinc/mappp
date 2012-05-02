@@ -48,7 +48,7 @@ class speedr.Map
 		if @items != Object(@items)
 			throw 'Map requires an object for construction.'
 			
-		@keys = Object.keys(@items)
+		@keys = speedr.getKeys(@items)
 		@updateLength()
 		
 	updateLength: ->
