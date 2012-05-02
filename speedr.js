@@ -280,5 +280,5 @@ speedr.SortedTable = (function() {
 if ((typeof module !== "undefined" && module !== null) && (typeof exports !== "undefined" && exports !== null)) {
   module.exports = speedr;
 } else {
-  root['speedr'] = speedr;
+  window.speedr = speedr;
 }

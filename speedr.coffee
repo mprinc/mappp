@@ -165,4 +165,4 @@ class speedr.SortedTable
 if module? and exports?
 	module.exports = speedr
 else
-	root['speedr'] = speedr
+	window.speedr = speedr
