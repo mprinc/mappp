@@ -4,6 +4,26 @@ var speedr,
 
 speedr = {};
 
+if (typeof document !== "undefined" && document !== null) {
+  speedr.ie = (function(){
+
+	    var v = 3,
+	        div = document.createElement('div'),
+	        all = div.getElementsByTagName('i');
+
+	    while (
+	        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+	        all[0]
+	    );
+
+	    return v > 4 ? v : false;
+
+	}());;
+
+} else {
+  speedr.ie = false;
+}
+
 speedr.getKeys = Object.keys || function(obj) {
   var k, keys;
   if (obj !== Object(obj)) {
@@ -143,13 +163,23 @@ speedr.Map = (function() {
   };
 
   Map.prototype.each = function(f) {
-    var i, k, v, _i, _ref, _ref1, _results;
-    _results = [];
-    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-      _ref1 = this.iter(i), k = _ref1[0], v = _ref1[1];
-      _results.push(f(k, v));
+    var i, k, v, _i, _ref, _ref1, _ref2, _results, _results1;
+    if (!speedr.ie) {
+      _results = [];
+      for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+        _ref1 = this.iter(i), k = _ref1[0], v = _ref1[1];
+        _results.push(f(k, v));
+      }
+      return _results;
+    } else {
+      _ref2 = this.items;
+      _results1 = [];
+      for (k in _ref2) {
+        v = _ref2[k];
+        _results1.push(f(k, v));
+      }
+      return _results1;
     }
-    return _results;
   };
 
   Map.prototype.eachKey = function(f) {

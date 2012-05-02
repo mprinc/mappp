@@ -1,5 +1,23 @@
 speedr = {}
 
+if document?
+	`speedr.ie = (function(){
+
+	    var v = 3,
+	        div = document.createElement('div'),
+	        all = div.getElementsByTagName('i');
+
+	    while (
+	        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
+	        all[0]
+	    );
+
+	    return v > 4 ? v : false;
+
+	}());`
+else
+	speedr.ie = false
+
 speedr.getKeys = Object.keys or (obj) ->
 	if obj != Object(obj)
 		throw new Error 'No keys for non-object'
@@ -80,9 +98,13 @@ class speedr.Map
 		@items
 		
 	each: (f) ->
-		for i in [0...@length]
-			[k,v] = @iter(i)
-			f(k,v)
+		if not speedr.ie
+			for i in [0...@length]
+				[k,v] = @iter(i)
+				f(k,v)
+		else
+			for k,v of @items
+				f(k,v)
 			
 	eachKey: (f) ->
 		for i in [0...@length]
