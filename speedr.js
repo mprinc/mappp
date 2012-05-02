@@ -100,18 +100,16 @@ speedr.Table = (function() {
     if (!this instanceof arguments.callee) {
       throw new Error('Constructor called as a function.  \nUse \'new\' for instantiating classes.');
     }
-    if (this.items === Object(obj)) {
+    if (this.items !== Object(this.items)) {
       throw 'Table requires an object for construction.';
     }
     this.keys = Object.keys(this.items);
-    this.length = this.keys.length;
+    this.updateLength();
   }
 
-  Table.prototype.get_length = function() {
-    return this.keys.length;
+  Table.prototype.updateLength = function() {
+    return this.length = this.keys.length;
   };
-
-  Table.prototype.set_length = function() {};
 
   Table.prototype.get = function(key) {
     return this.items[key];
@@ -138,6 +136,7 @@ speedr.Table = (function() {
         pushPair(others[i], others[i + 1]);
       }
     }
+    this.updateLength();
     return this.items;
   };
 
@@ -146,6 +145,7 @@ speedr.Table = (function() {
       delete this.items[key];
       Array.remove(this.keys, key);
     }
+    this.updateLength();
     return this.items;
   };
 
@@ -179,7 +179,8 @@ speedr.Table = (function() {
 
   Table.prototype.clear = function() {
     this.items = {};
-    return this.keys = [];
+    this.keys = [];
+    return this.updateLength();
   };
 
   return Table;
@@ -193,14 +194,19 @@ speedr.SortedTable = (function() {
   function SortedTable() {
     this.keys = [];
     this.vals = [];
-    this.length = 0;
+    this.updateLength();
   }
+
+  SortedTable.prototype.updateLength = function() {
+    return this.length = this.keys.length;
+  };
 
   SortedTable.prototype.insert = function(key, val) {
     var i;
-    i = binarySearch(this.keys, key);
+    i = speedr.binarySearch(this.keys, key);
     this.keys.splice(i, 0, key);
-    return this.vals.splice(i, 0, val);
+    this.vals.splice(i, 0, val);
+    return this.updateLength();
   };
 
   SortedTable.prototype.remove = function(key, val) {
@@ -208,7 +214,7 @@ speedr.SortedTable = (function() {
     if (!(key != null)) {
       return;
     }
-    i = binarySearch(this.keys, key);
+    i = speedr.binarySearch(this.keys, key);
     if (val != null) {
       j = i - 1;
       while (true) {
@@ -224,12 +230,14 @@ speedr.SortedTable = (function() {
       }
     }
     this.keys.splice(i, 1);
-    return this.vals.splice(i, 1);
+    this.vals.splice(i, 1);
+    return this.updateLength();
   };
 
   SortedTable.prototype.pop = function() {
     this.keys.pop();
-    return this.vals.pop();
+    this.vals.pop();
+    return this.updateLength();
   };
 
   SortedTable.prototype.iter = function(counter) {
