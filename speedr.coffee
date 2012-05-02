@@ -19,19 +19,6 @@ speedr.binarySearch = (arr, val, exactOnly = false) ->
 		if arr[h] == val then return h
 		else return -1
 	else return h
-
-speedr.equals = (a, b) ->
-	if typeOf(a) != typeOf(b) then return false
-	if typeOf(a) == 'array'
-		if a.length != b.length then return false
-		for v,i in a
-			if not equals(a[i], b[i]) then return false
-	else if typeOf(a) == 'object'
-		if Object.getLength(a) != Object.getLength(b) then return false
-		for i,v of a
-			if not equals(a[i], b[i]) then return false
-	else return a == b
-	return true
 		
 speedr.flexiSlice = (obj, start, end) ->
 	if typeOf(obj) == 'array' then temp = [] else temp = ''
