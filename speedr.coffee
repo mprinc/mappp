@@ -45,10 +45,6 @@ speedr.flexiSlice = (obj, start, end) ->
 # map keys are unique
 class speedr.Map
 	constructor: (@items = {}) ->
-		if not @ instanceof arguments.callee
-			throw new Error '''Constructor called as a function.  
-							   Use 'new' for instantiating classes.'''
-							   
 		if @items != Object(@items)
 			throw 'Map requires an object for construction.'
 			
