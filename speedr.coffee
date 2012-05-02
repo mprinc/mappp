@@ -1,6 +1,4 @@
 speedr = {}
-if module? and exports?
-	module.exports = speedr
 
 speedr.getKeys = Object.keys or (obj) ->
 	if obj != Object(obj)
@@ -161,3 +159,10 @@ class speedr.SortedTable
 		return [@keys[@length - 1 - counter], @vals[@length - 1 - counter]]
 	iterK: (counter) -> @keys[@length - 1 - counter]
 	iterV: (counter) -> @vals[@length - 1 - counter]
+	
+	
+# export functions
+if module? and exports?
+	module.exports = speedr
+else
+	root['speedr'] = speedr
