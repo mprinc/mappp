@@ -100,7 +100,8 @@ class speedr.Map
 	each: (f) ->
 		if not speedr.ie
 			for i in [0...@length]
-				[k,v] = @iter(i)
+				k = @iterK(i)
+				v = @iterV(i)
 				f(k,v)
 		else
 			for k,v of @items
