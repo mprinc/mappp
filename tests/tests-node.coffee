@@ -36,22 +36,22 @@ test 'slice 10', fn(['a','b','c'], -2,-2), []
 test 'slice 11', fn(['a','b','c'], 1,-2), ['b','a','c']
 test 'slice 12', fn(['a','b','c'], -10,0), ['a','b','c']
 
-# Table
-blah = new speedr.Table a: 8, b: 9, c: 10
-test 'Table 1', blah.get('b'), 9
-test 'Table 2', blah.set(b: 'yoje'), { a: 8, b: 'yoje', c: 10 }
+# Map
+blah = new speedr.Map a: 8, b: 9, c: 10
+test 'Map 1', blah.get('b'), 9
+test 'Map 2', blah.set(b: 'yoje'), { a: 8, b: 'yoje', c: 10 }
 boom = 'BOOM'
 blah.set(boom, 'shakalaka', '3', 12)
-test 'Table 3', blah.set(boom, 'shakalaka', '3', 12), 
+test 'Map 3', blah.set(boom, 'shakalaka', '3', 12), 
 	a: 8, b: 'yoje', c: 10, 'BOOM': 'shakalaka', 3: 12
 ass = {}
 for i in [0...blah.length]
 	[k,v] = blah.iter(i)
 	ass[k] = v
-test 'Table 4', ass, blah.items
-test 'Table 5', blah.length, 5
-test 'Table 6', blah.hasVal('yoje'), true
-test 'Table 7', blah.hasVal('yaaaje'), false
+test 'Map 4', ass, blah.items
+test 'Map 5', blah.length, 5
+test 'Map 6', blah.hasVal('yoje'), true
+test 'Map 7', blah.hasVal('yaaaje'), false
 
 # sortedTable
 sorty = new speedr.SortedTable()

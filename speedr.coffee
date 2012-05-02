@@ -42,17 +42,15 @@ speedr.flexiSlice = (obj, start, end) ->
 			else temp += obj[obj.length + i]
 	return temp
 
-# an improved table that keeps track of its length efficiently
-# and provides easy, fast iteration
-# keys must be unique
-class speedr.Table
+# map keys are unique
+class speedr.Map
 	constructor: (@items = {}) ->
 		if not @ instanceof arguments.callee
 			throw new Error '''Constructor called as a function.  
 							   Use 'new' for instantiating classes.'''
 							   
 		if @items != Object(@items)
-			throw 'Table requires an object for construction.'
+			throw 'Map requires an object for construction.'
 			
 		@keys = Object.keys(@items)
 		@updateLength()
@@ -68,7 +66,7 @@ class speedr.Table
 			if not @items[key]?
 				@keys.push(key)
 			@items[key] = val
-		# passed a table
+		# passed an object
 		if others.length == 0
 			for key,val of obj
 				pushPair(key, val)
