@@ -100,7 +100,7 @@ speedr.Map = (function() {
     if (this.items !== Object(this.items)) {
       throw 'Map requires an object for construction.';
     }
-    this.keys = Object.keys(this.items);
+    this.keys = speedr.getKeys(this.items);
     this.updateLength();
   }
 
