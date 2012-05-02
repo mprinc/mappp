@@ -44,6 +44,7 @@ speedr.flexiSlice = (obj, start, end) ->
 
 # an improved table that keeps track of its length efficiently
 # and provides easy, fast iteration
+# keys must be unique
 class speedr.Table
 	constructor: (@items = {}) ->
 		if not @ instanceof arguments.callee
