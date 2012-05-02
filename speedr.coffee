@@ -54,10 +54,10 @@ class speedr.Table
 			throw 'Table requires an object for construction.'
 			
 		@keys = Object.keys(@items)
-		@length = @keys.length
+		@updateLength()
 		
-	get_length: -> @keys.length
-	set_length: ->
+	updateLength: ->
+		@length = @keys.length
 		
 	get: (key) ->
 		return @items[key]
@@ -76,12 +76,14 @@ class speedr.Table
 			pushPair(obj, others[0])
 			for i in [1...others.length] by 2
 				pushPair(others[i], others[i + 1])
+		@updateLength()
 		@items
 		
 	remove: (key) ->
 		if @items[key]?
 			delete @items[key]
 			Array.remove(@keys, key)
+		@updateLength()
 		@items
 		
 	iter: (counter) ->
@@ -103,6 +105,7 @@ class speedr.Table
 	clear: ->
 		@items = {}
 		@keys = []
+		@updateLength()
 		
 # a table that is sorted upon insertion.  multiple values can be
 # stored under a single key.  thus, item removal requires both
