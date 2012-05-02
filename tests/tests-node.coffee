@@ -36,4 +36,38 @@ test 'slice 10', fn(['a','b','c'], -2,-2), []
 test 'slice 11', fn(['a','b','c'], 1,-2), ['b','a','c']
 test 'slice 12', fn(['a','b','c'], -10,0), ['a','b','c']
 
+# Table
+blah = new speedr.Table a: 8, b: 9, c: 10
+test 'Table 1', blah.get('b'), 9
+test 'Table 2', blah.set(b: 'yoje'), { a: 8, b: 'yoje', c: 10 }
+boom = 'BOOM'
+blah.set(boom, 'shakalaka', '3', 12)
+test 'Table 3', blah.set(boom, 'shakalaka', '3', 12), 
+	a: 8, b: 'yoje', c: 10, 'BOOM': 'shakalaka', 3: 12
+ass = {}
+for i in [0...blah.length]
+	[k,v] = blah.iter(i)
+	ass[k] = v
+test 'Table 4', blah.items, ass
+test 'Table 5', blah.length, 5
+test 'Table 6', blah.hasVal('yoje'), true
+test 'Table 7', blah.hasVal('yaaaje'), false
+
+# # binarySearch
+# sorty = new speedr.SortedTable()
+# len = 1000
+# for i in [0...len]
+# 	t = rambo(10000000) / rambo(1000)
+# 	sorty.insert(t, 0)
+# 	if chance(5) then sorty.remove(t)
+# 	if chance(5) then sorty.insert(t, 0)
+# results = []
+# for i in [0...sorty.length]
+# 	results.splice(0, 0, sorty.iterK(i))
+# for i in [0...results.length]
+# 	if (results[i - 1]? and not (results[i] <= results[i - 1])) or
+# 		(results[i + 1]? and not (results[i] >= results[i + 1]))
+# 			echo "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
+
+
 console.log "** #{testCount} tests completed **"
