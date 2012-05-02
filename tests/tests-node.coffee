@@ -1,11 +1,13 @@
-speedr = require './speedr'
+speedr = require '../speedr'
 _      = require 'underscore'
 
+testCount = 0
 test = (name, result, expected) ->
 	if not _.isEqual(result, expected)
 		console.log "#{name} FAILED"
 		console.log "Got:      #{result}"
 		console.log "Expected: #{expected}"
+	testCount++
 		
 		
 fn = speedr.flexiSlice
@@ -21,3 +23,5 @@ test 'slice 9 ', fn(['a','b','c'], 1,2), ['b']
 test 'slice 10', fn(['a','b','c'], -2,-2), []
 test 'slice 11', fn(['a','b','c'], 1,-2), ['b','a','c']
 test 'slice 12', fn(['a','b','c'], -10,0), ['a','b','c']
+
+console.log "** #{testCount} tests completed **"
