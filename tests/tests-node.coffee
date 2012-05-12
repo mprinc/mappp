@@ -65,10 +65,14 @@ test 'Map 7', blah.hasVal('yaaaje'), false
 msorty = new speedr.SortedMap([420, 'a'], [69, 'b'], [500, 'c'], [123, 'd'])
 resultLength = 4
 
-test 'SortedMap 1', msorty.get(420), 'a'
-test 'SortedMap 2', msorty.get(69), 'b'
-test 'SortedMap 3', msorty.keyPosition(69), 0
-test 'SortedMap 4', msorty.keyPosition(420), 2
+test 'SortedMap 1 ', msorty.get(420), 'a'
+test 'SortedMap 2 ', msorty.get(69), 'b'
+test 'SortedMap 3 ', msorty.keyPosition(69), 0
+test 'SortedMap 4 ', msorty.keyPosition(420), 2
+test 'SortedMap 5 ', msorty.hasKey(420), true
+test 'SortedMap 6 ', msorty.hasKey(100), false
+test 'SortedMap 7 ', msorty.hasVal('c'), true
+test 'SortedMap 8 ', msorty.hasVal('e'), false
 
 len = 1000
 for i in [0...len]
@@ -94,6 +98,10 @@ for i in [0...results.length]
 	if  (results[i - 1]? and not (results[i] <= results[i - 1])) or
 		(results[i + 1]? and not (results[i] >= results[i + 1]))
 			console.log "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
+
+msorty.clear()
+test 'SortedMap clear', msorty.keys, []
+test 'SortedMap clear', msorty.vals, []
 
 # sortedTable
 sorty = new speedr.SortedTable()
