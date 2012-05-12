@@ -29,13 +29,13 @@ speedr.getArrays = (obj) ->
 			vals[vals.length] = v
 	return [keys, vals]
 
-speedr.binarySearch = (arr, val, exactOnly = false) ->
+speedr.binarySearch = (arr, val, exactMatch = false) ->
 	h = arr.length
 	l = -1
 	while h - l > 1
 		if arr[m = (h + l) >> 1] > val then l = m
 		else h = m
-	if exactOnly
+	if exactMatch
 		if arr[h] == val then return h
 		else return -1
 	else return h
@@ -210,15 +210,16 @@ class speedr.SortedMap
 		return null
 	
 	hasKey: (key) ->
-		# return @items[key]?
-		for k in @keys
-			if key == k then return true
-		return false
+		if speedr.binarySearch(@keys, key, true) == -1
+			return false
+		else
+			return true
 		
 	hasVal: (val) ->
-		for v in @vals
-			if vals == v then return true
-		return false
+		if speedr.binarySearch(@vals, val, true) == -1
+			return false
+		else
+			return true
 		
 	clear: ->
 		@keys = []
