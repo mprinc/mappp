@@ -18,14 +18,16 @@ if document?
 else
 	speedr.ie = false
 
-speedr.getKeys = Object.keys or (obj) ->
+speedr.getArrays = (obj) ->
 	if obj != Object(obj)
 		throw new Error 'No keys for non-object'
 	keys = []
-	for k of obj
+	vals = []
+	for k,v of obj
 		if hasOwnProperty.call(obj, k)
 			keys[keys.length] = k
-	return keys
+			vals[vals.length] = v
+	return [keys, vals]
 
 speedr.binarySearch = (arr, val, exactOnly = false) ->
 	h = arr.length
@@ -57,18 +59,20 @@ speedr.flexiSlice = (obj, start, end) ->
 			if i >= 0 then temp += obj[i]
 			else temp += obj[obj.length + i]
 	return temp
+		
 
-# map keys are unique
+# unique keys
 class speedr.Map
 	constructor: (@items = {}) ->
 		if @items != Object(@items)
 			throw 'Map requires an object for construction.'
 			
-		@keys = speedr.getKeys(@items)
+		[@keys, junk] = speedr.getArrays(@items)
 		@updateLength()
 		
 	updateLength: ->
 		@length = @keys.length
+		return @length
 		
 	get: (key) ->
 		return @items[key]
@@ -87,15 +91,13 @@ class speedr.Map
 			pushPair(obj, others[0])
 			for i in [1...others.length] by 2
 				pushPair(others[i], others[i + 1])
-		@updateLength()
-		@items
+		return @updateLength()
 		
 	remove: (key) ->
 		if @items[key]?
 			delete @items[key]
 			Array.remove(@keys, key)
-		@updateLength()
-		@items
+		return @updateLength()
 		
 	each: (f) ->
 		if not speedr.ie
@@ -106,14 +108,17 @@ class speedr.Map
 		else
 			for k,v of @items
 				f(k,v)
+		return null
 			
 	eachKey: (f) ->
 		for i in [0...@length]
 			f(@iterK(i))
+		return null
 			
 	eachVal: (f) ->
 		for i in [0...@length]
 			f(@iterV(i))
+		return null
 		
 	iter: (counter) ->
 		return [@keys[counter], @items[@keys[counter]]]
@@ -121,7 +126,7 @@ class speedr.Map
 	iterV: (counter) -> @items[@keys[counter]]
 	
 	hasKey: (key) ->
-		@items[key]?
+		return @items[key]?
 		
 	hasVal: (val) ->
 		result = false
@@ -135,6 +140,8 @@ class speedr.Map
 		@items = {}
 		@keys = []
 		@updateLength()
+		return null
+		
 		
 # a table that is sorted upon insertion.  multiple values can be
 # stored under a single key.  thus, item removal requires both
@@ -148,12 +155,13 @@ class speedr.SortedTable
 		
 	updateLength: ->
 		@length = @keys.length
+		return @length
 		
 	insert: (key, val) ->
 		i = speedr.binarySearch(@keys, key)
 		@keys.splice(i, 0, key)
 		@vals.splice(i, 0, val)
-		@updateLength()
+		return @updateLength()
 		
 	remove: (key, val) ->
 		if not key? then return

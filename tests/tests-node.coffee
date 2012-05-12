@@ -39,11 +39,16 @@ test 'slice 12', fn(['a','b','c'], -10,0), ['a','b','c']
 # Map
 blah = new speedr.Map a: 8, b: 9, c: 10
 test 'Map 1', blah.get('b'), 9
-test 'Map 2', blah.set(b: 'yoje'), { a: 8, b: 'yoje', c: 10 }
+
+blah.set(b: 'yoje')
+test 'Map 2', blah.items, { a: 8, b: 'yoje', c: 10 }
+
 boom = 'BOOM'
 blah.set(boom, 'shakalaka', '3', 12)
-test 'Map 3', blah.set(boom, 'shakalaka', '3', 12), 
+blah.set(boom, 'shakalaka', '3', 12)
+test 'Map 3', blah.items, 
 	a: 8, b: 'yoje', c: 10, 'BOOM': 'shakalaka', 3: 12
+	
 ass = {}
 for i in [0...blah.length]
 	[k,v] = blah.iter(i)
