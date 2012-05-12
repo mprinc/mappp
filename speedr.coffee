@@ -17,9 +17,17 @@ if document?
 	}());`
 else
 	speedr.ie = false
+	
+	
+isArray = Array.isArray or (obj) ->
+	return toString.call(obj) == '[object Array]'
+
+isObject = (obj) ->
+	return obj == Object(obj)
+
 
 speedr.getArrays = (obj) ->
-	if obj != Object(obj)
+	if not isObject(obj)
 		throw new Error 'No keys for non-object'
 	keys = []
 	vals = []
@@ -64,7 +72,7 @@ speedr.flexiSlice = (obj, start, end) ->
 # unique keys
 class speedr.Map
 	constructor: (@items = {}) ->
-		if @items != Object(@items)
+		if not isObject(@items)
 			throw 'Map requires an object for construction.'
 			
 		[@keys, junk] = speedr.getArrays(@items)
@@ -144,46 +152,53 @@ class speedr.Map
 		
 		
 class speedr.SortedMap
-	constructor: (items = {}) ->
-		if items != Object(items)
-			throw 'SortedMap requires an object for construction.'
-			
+	constructor: (items...) ->
 		@keys = []
 		@vals = []
-		@insert(items)
+		@insert(items...)
 		@updateLength()
 		
 	updateLength: ->
 		@length = @keys.length
 		return @length
 		
-	insert: (key, val) ->
-		if not key? then return @length
-		# passed a key, value pair
-		if val?
-			i = speedr.binarySearch(@keys, key)
-			@keys.splice(i, 0, key)
-			@vals.splice(i, 0, val)
-			return @updateLength()
-		# passed an object
-		else if key == Object(key)
-			for k,v of key
-				@insert(k, v)
-			return @updateLength()
-		else
-			throw 'Attempted insert of invalid items.'
+	get: (key) ->
+		if not key? then return null
+		i = speedr.binarySearch(@keys, key, true)
+		if i == -1 then return null
+		return @vals[i]
+		
+	keyPosition: (key) ->
+		i = speedr.binarySearch(@keys, key, true)
+		if i == -1 then return null
+		else return @length - 1 - i
+		
+	valPosition: (val) ->
+		i = speedr.binarySearch(@vals, val, true)
+		if i == -1 then return null
+		else return @length - 1 - i
+		
+	insert: (items...) ->
+		if not items? then return @length
+		for item in items
+			if not isArray(item)
+				throw 'Attempted insert of invalid item.'
+			i = speedr.binarySearch(@keys, item[0])
+			@keys.splice(i, 0, item[0])
+			@vals.splice(i, 0, item[1])
+		return @updateLength()
 				
 	remove: (key) ->
 		if not key? then return @length
 		i = speedr.binarySearch(@keys, key)
 		@keys.splice(i, 1)
 		@vals.splice(i, 1)
-		@updateLength()
+		return @updateLength()
 		
 	pop: ->
 		@keys.pop()
 		@vals.pop()
-		@updateLength()
+		return @updateLength()
 		
 	# note that these iterate from the top down
 	# (from smaller to larger)

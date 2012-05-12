@@ -62,13 +62,28 @@ test 'Map 6', blah.hasVal('yoje'), true
 test 'Map 7', blah.hasVal('yaaaje'), false
 
 # sortedMap
-msorty = new speedr.SortedMap(420: 'a', 69: 'b', 500: 'c', 123: 'd')
+msorty = new speedr.SortedMap([420, 'a'], [69, 'b'], [500, 'c'], [123, 'd'])
+resultLength = 4
+
+test 'SortedMap 1', msorty.get(420), 'a'
+test 'SortedMap 2', msorty.get(69), 'b'
+test 'SortedMap 3', msorty.keyPosition(69), 0
+test 'SortedMap 4', msorty.keyPosition(420), 2
+
 len = 1000
 for i in [0...len]
 	t = rambo(10000000) / rambo(1000)
-	msorty.insert(t, 0)
-	if chance(5) then msorty.remove(t)
-	if chance(5) then msorty.insert(t, 0)
+	msorty.insert([t, 0])
+	resultLength++
+	if chance(5)
+		msorty.remove(t)
+		resultLength--
+	if chance(5)
+		msorty.insert([t, 0])
+		resultLength++
+	
+test 'SortedMap length', msorty.length, resultLength
+
 results = []
 for i in [0...msorty.length]
 	results.splice(0, 0, msorty.iterK(i))
