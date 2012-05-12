@@ -143,6 +143,90 @@ class speedr.Map
 		return null
 		
 		
+class speedr.SortedMap
+	constructor: (items = {}) ->
+		if items != Object(items)
+			throw 'SortedMap requires an object for construction.'
+			
+		@keys = []
+		@vals = []
+		@insert(items)
+		@updateLength()
+		
+	updateLength: ->
+		@length = @keys.length
+		return @length
+		
+	insert: (key, val) ->
+		if not key? then return @length
+		# passed a key, value pair
+		if val?
+			i = speedr.binarySearch(@keys, key)
+			@keys.splice(i, 0, key)
+			@vals.splice(i, 0, val)
+			return @updateLength()
+		# passed an object
+		else if key == Object(key)
+			for k,v of key
+				@insert(k, v)
+			return @updateLength()
+		else
+			throw 'Attempted insert of invalid items.'
+				
+	remove: (key) ->
+		if not key? then return @length
+		i = speedr.binarySearch(@keys, key)
+		@keys.splice(i, 1)
+		@vals.splice(i, 1)
+		@updateLength()
+		
+	pop: ->
+		@keys.pop()
+		@vals.pop()
+		@updateLength()
+		
+	# note that these iterate from the top down
+	# (from smaller to larger)
+	iter: (counter) ->
+		return [@keys[@length - 1 - counter], @vals[@length - 1 - counter]]
+	iterK: (counter) -> @keys[@length - 1 - counter]
+	iterV: (counter) -> @vals[@length - 1 - counter]
+		
+	each: (f) ->
+		for i in [0...@length]
+			k = @iterK(i)
+			v = @iterV(i)
+			f(k,v)
+		return null
+			
+	eachKey: (f) ->
+		for i in [0...@length]
+			f(@iterK(i))
+		return null
+			
+	eachVal: (f) ->
+		for i in [0...@length]
+			f(@iterV(i))
+		return null
+	
+	hasKey: (key) ->
+		# return @items[key]?
+		for k in @keys
+			if key == k then return true
+		return false
+		
+	hasVal: (val) ->
+		for v in @vals
+			if vals == v then return true
+		return false
+		
+	clear: ->
+		@keys = []
+		@vals = []
+		@updateLength()
+		return null
+			
+		
 # a table that is sorted upon insertion.  multiple values can be
 # stored under a single key.  thus, item removal requires both
 # the key *and* the value for if the value is something like a 
