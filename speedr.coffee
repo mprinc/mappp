@@ -48,26 +48,6 @@ speedr.binarySearch = (arr, val, exactMatch = false) ->
 		else return -1
 	else return h
 		
-speedr.flexiSlice = (obj, start, end) ->
-	if toString.call(obj) == '[object Array]'
-		temp = []
-	else temp = ''
-	if not end?
-		if start >= 0 then end = obj.length
-		else end = -obj.length - 1
-	if end > obj.length then end = obj.length
-	if end < -obj.length then end = -obj.length - 1
-	if start > obj.length then start = obj.length - 1
-	if start < -obj.length then start = -obj.length
-	for i in [start...end]
-		if toString.call(obj) == '[object Array]'
-			if i >= 0 then temp.push(obj[i])
-			else temp.push(obj[obj.length + i])
-		else
-			if i >= 0 then temp += obj[i]
-			else temp += obj[obj.length + i]
-	return temp
-		
 
 # unique keys
 class speedr.Map
