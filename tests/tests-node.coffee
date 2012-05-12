@@ -1,9 +1,12 @@
 speedr = require '../speedr'
 _      = require 'underscore'
 
+STATUS = 'ok'
+
 testCount = 0
 test = (name, result, expected) ->
 	if not _.isEqual(result, expected)
+		STATUS = 'WITH ERRORS'
 		console.log "#{name} FAILED"
 		console.log "Got:      #{result}"
 		if result == Object(result)
@@ -70,6 +73,9 @@ results = []
 for i in [0...msorty.length]
 	results.splice(0, 0, msorty.iterK(i))
 for i in [0...results.length]
+	test 'SortedMap loop',  (results[i - 1]? and not (results[i] <= results[i - 1])) or
+							(results[i + 1]? and not (results[i] >= results[i + 1])), false
+	# in order to give the specific place where it went wrong:
 	if  (results[i - 1]? and not (results[i] <= results[i - 1])) or
 		(results[i + 1]? and not (results[i] >= results[i + 1]))
 			console.log "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
@@ -86,9 +92,12 @@ results = []
 for i in [0...sorty.length]
 	results.splice(0, 0, sorty.iterK(i))
 for i in [0...results.length]
+	test 'SortedTable loop', (results[i - 1]? and not (results[i] <= results[i - 1])) or
+							 (results[i + 1]? and not (results[i] >= results[i + 1])), false
+	# in order to give the specific place where it went wrong:
 	if  (results[i - 1]? and not (results[i] <= results[i - 1])) or
 		(results[i + 1]? and not (results[i] >= results[i + 1]))
 			console.log "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
 
 
-console.log "** #{testCount} tests completed **"
+console.log "** #{testCount} tests completed #{STATUS} **"
