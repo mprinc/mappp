@@ -55,6 +55,9 @@ class BaseMap
 class speedr.Map extends BaseMap
 	constructor: (items...) ->
 		@keys = []
+		# reverse keys = key -> index of key in @keys
+		# (for fast removal since we can avoid indexOf())
+		@revKeys = {}
 		@items = {}
 		@set(items...)
 		@updateLength()
@@ -73,6 +76,7 @@ class speedr.Map extends BaseMap
 			# key = item[0]
 			# val = item[1]
 			if not @items[item[0]]?
+				@revKeys[item[0]] = @keys.length
 				@keys[@keys.length] = item[0]
 			@items[item[0]] = item[1]
 		return @updateLength()
@@ -81,7 +85,8 @@ class speedr.Map extends BaseMap
 		if not key? then return @length
 		if @items[key]?
 			delete @items[key]
-			@keys.splice(@keys.indexOf(key), 1)
+			@keys.splice(@revKeys[key], 1)
+			delete @revKeys[key]
 		return @updateLength()
 		
 	each: (f) ->
@@ -123,6 +128,7 @@ class speedr.Map extends BaseMap
 		
 	clear: ->
 		@items = {}
+		@revKeys = {}
 		@keys = []
 		@updateLength()
 		return null
