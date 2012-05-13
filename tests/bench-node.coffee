@@ -13,7 +13,7 @@ map = new speedr.Map()
 for i in [0..1000000]
 	iS = i.toString()
 	obj[iS] = iS
-	map.set(iS, iS)
+	map.set([iS, iS])
 
 counter = 0
 bench 'Normal object for loop (keys only)', ->
