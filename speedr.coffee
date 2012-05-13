@@ -81,7 +81,6 @@ class speedr.Map extends BaseMap
 		if not key? then return @length
 		if @items[key]?
 			delete @items[key]
-			# Array.remove(@keys, @keys.find(key))
 			@keys.splice(@keys.indexOf(key), 1)
 		return @updateLength()
 		
