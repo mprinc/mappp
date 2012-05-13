@@ -37,14 +37,18 @@ blah.set([boom, 'shakalaka'], ['3', 12])
 test 'Map 3', blah.items, 
 	a: 8, b: 'yoje', c: 10, 'BOOM': 'shakalaka', 3: 12
 	
+blah.remove('b')
+test 'Map 4', blah.items, 
+	a: 8, c: 10, 'BOOM': 'shakalaka', 3: 12
+	
 ass = {}
 for i in [0...blah.length]
 	[k,v] = blah.iter(i)
 	ass[k] = v
-test 'Map 4', ass, blah.items
-test 'Map 5', blah.length, 5
-test 'Map 6', blah.hasVal('yoje'), true
-test 'Map 7', blah.hasVal('yaaaje'), false
+test 'Map 5', ass, blah.items
+test 'Map 6', blah.length, 4
+test 'Map 7', blah.hasVal('shakalaka'), true
+test 'Map 8', blah.hasVal('yaaaje'), false
 
 
 # SortedMap
