@@ -1,6 +1,6 @@
 {exec} = require 'child_process'
 
-execAndPipe = (execString, restart = true) ->
+execAndPipe = (execString, restart) ->
 	piper = exec execString
 
 	piper.stderr.on 'data', (data) ->
@@ -9,14 +9,17 @@ execAndPipe = (execString, restart = true) ->
 	piper.stdout.on 'data', (data) ->
 		# console.log "-- #{execString} --"
 		process.stdout.write data.toString()
-
-	piper.on 'exit', (code) ->
-		console.log "** #{execString} exited with code #{code} **"
-		if restart
-			console.log 'restarting...'
-			execAndPipe execString
 			
 task 'watch', 'Compile speedr in watch mode', ->
-	execAndPipe 'coffee -cbw speedr.coffee', false
+	execAndPipe 'coffee -cbw speedr.coffee'
 
 task 'w', 'Shorthand for "watch"', -> invoke 'watch'
+
+task 'minify', 'Minify the compiled javascript', ->
+	execAndPipe 'uglifyjs -nm -o speedr-min.js speedr.js'
+	
+task 'test', 'Run tests', ->
+	execAndPipe 'cd tests && coffee tests-node.coffee'
+	
+task 'bench', 'Run benchmarks', ->
+	execAndPipe 'cd tests && coffee bench-node.coffee'
