@@ -1,23 +1,4 @@
 speedr = {}
-
-if document?
-	`speedr.ie = (function(){
-
-	    var v = 3,
-	        div = document.createElement('div'),
-	        all = div.getElementsByTagName('i');
-
-	    while (
-	        div.innerHTML = '<!--[if gt IE ' + (++v) + ']><i></i><![endif]-->',
-	        all[0]
-	    );
-
-	    return v > 4 ? v : false;
-
-	}());`
-else
-	speedr.ie = false
-	
 	
 isArray = Array.isArray or (obj) ->
 	return toString.call(obj) == '[object Array]'
@@ -49,6 +30,23 @@ class BaseMap
 	updateLength: ->
 		@length = @keys.length
 		return @length
+		
+	each: (f) ->
+		for i in [0...@length]
+			k = @iterK(i)
+			v = @iterV(i)
+			f(k,v)
+		return null
+			
+	eachKey: (f) ->
+		for i in [0...@length]
+			f(@iterK(i))
+		return null
+			
+	eachVal: (f) ->
+		for i in [0...@length]
+			f(@iterV(i))
+		return null
 		
 
 # unsorted map with unique keys
@@ -88,27 +86,6 @@ class speedr.Map extends BaseMap
 			@keys.splice(@revKeys[key], 1)
 			delete @revKeys[key]
 		return @updateLength()
-		
-	each: (f) ->
-		if not speedr.ie
-			for i in [0...@length]
-				k = @iterK(i)
-				v = @iterV(i)
-				f(k,v)
-		else
-			for k,v of @items
-				f(k,v)
-		return null
-			
-	eachKey: (f) ->
-		for i in [0...@length]
-			f(@iterK(i))
-		return null
-			
-	eachVal: (f) ->
-		for i in [0...@length]
-			f(@iterV(i))
-		return null
 		
 	iter: (counter) ->
 		return [@keys[counter], @items[@keys[counter]]]
@@ -186,23 +163,6 @@ class speedr.SortedMap extends BaseMap
 		return [@keys[@length - 1 - counter], @vals[@length - 1 - counter]]
 	iterK: (counter) -> return @keys[@length - 1 - counter]
 	iterV: (counter) -> return @vals[@length - 1 - counter]
-		
-	each: (f) ->
-		for i in [0...@length]
-			k = @iterK(i)
-			v = @iterV(i)
-			f(k,v)
-		return null
-			
-	eachKey: (f) ->
-		for i in [0...@length]
-			f(@iterK(i))
-		return null
-			
-	eachVal: (f) ->
-		for i in [0...@length]
-			f(@iterV(i))
-		return null
 	
 	hasKey: (key) ->
 		if speedr.binarySearch(@keys, key, true) == -1
@@ -243,6 +203,8 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
+			# key = item[0]
+			# val = item[1]
 			i = speedr.binarySearch(@keys, item[0])
 			@keys.splice(i, 0, item[0])
 			@vals.splice(i, 0, item[1])
