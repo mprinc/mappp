@@ -11,7 +11,7 @@ Features
 
 Tests and Benchmarks
 -
-* Go try out the [jsPerf benchmarks!](http://jsperf.com/speedr-js-vs-normal-object-iteration)
+* Go try out the [jsPerf benchmarks!](http://jsperf.com/speedr-js-vs-normal-object-iteration/2)
 * To run the tests on Node.js, first make sure you have [NPM installed](http://nodejs.org/#download) (it comes with Node.js).  The tests are written in coffeescript, so you'll have to get that with ```sudo npm -g coffee-script```.  Then cd into your tests directory: ```cd speedr/tests``` and run ```coffee tests-node.coffee``` or ```coffee bench-node.coffee```.
 
 Todo
