@@ -155,16 +155,6 @@ class speedr.SortedMap
 		if i == -1 then return null
 		return @vals[i]
 		
-	keyPosition: (key) ->
-		i = speedr.binarySearch(@keys, key, true)
-		if i == -1 then return null
-		else return @length - 1 - i
-		
-	valPosition: (val) ->
-		i = speedr.binarySearch(@vals, val, true)
-		if i == -1 then return null
-		else return @length - 1 - i
-		
 	insert: (items...) ->
 		if not items? then return @length
 		for item in items
@@ -242,10 +232,6 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		@vals = []
 		@insert(items...)
 		@updateLength()
-		
-	keyPosition: ->
-	valPosition: ->
-		# shouldn't exist?  maybe it could return ranges?
 		
 	insert: (items...) ->
 		if not items? then return @length
