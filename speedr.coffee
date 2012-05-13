@@ -49,7 +49,7 @@ speedr.binarySearch = (arr, val, exactMatch = false) ->
 	else return h
 		
 
-# unique keys
+# unsorted map with unique keys
 class speedr.Map
 	constructor: (@items = {}) ->
 		if not isObject(@items)
@@ -129,6 +129,11 @@ class speedr.Map
 		@keys = []
 		@updateLength()
 		return null
+		
+
+# unsorted map that allows for duplicate keys	
+class speedr.MultiMap extends speedr.Map
+	constructor: (items...) ->
 		
 	
 # a map that is sorted upon insertion.
