@@ -130,7 +130,9 @@ class speedr.Map
 		@updateLength()
 		return null
 		
-		
+	
+# a map that is sorted upon insertion.
+# keys must be unique
 class speedr.SortedMap
 	constructor: (items...) ->
 		@keys = []
@@ -223,7 +225,7 @@ class speedr.SortedMap
 		return null
 			
 		
-# a table that is sorted upon insertion.  multiple values can be
+# a map that is sorted upon insertion.  multiple values can be
 # stored under a single key.  thus, item removal requires both
 # the key *and* the value for if the value is something like a 
 # class instance.
