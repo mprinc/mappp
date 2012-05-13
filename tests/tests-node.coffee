@@ -61,13 +61,13 @@ test 'SortedMap 6 ', msorty.hasVal('e'), false
 len = 1000
 for i in [0...len]
 	t = rambo(10000000) / rambo(1000)
-	msorty.insert([t, 0])
+	msorty.set([t, 0])
 	resultLength++
 	if chance(5)
 		msorty.remove(t)
 		resultLength--
 	if chance(5)
-		msorty.insert([t, 0])
+		msorty.set([t, 0])
 		resultLength++
 	
 test 'SortedMap length', msorty.length, resultLength
@@ -104,13 +104,13 @@ test 'SortedMultiMap 6 ', msorty.hasVal('e'), false
 len = 1000
 for i in [0...len]
 	t = rambo(10000000) / rambo(1000)
-	msorty.insert([t, 0])
+	msorty.set([t, 0])
 	resultLength++
 	if chance(5)
 		msorty.remove(t)
 		resultLength--
 	if chance(5)
-		msorty.insert([t, 0])
+		msorty.set([t, 0])
 		resultLength++
 	
 test 'SortedMultiMap length', msorty.length, resultLength

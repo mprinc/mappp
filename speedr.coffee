@@ -143,7 +143,7 @@ class speedr.SortedMap
 	constructor: (items...) ->
 		@keys = []
 		@vals = []
-		@insert(items...)
+		@set(items...)
 		@updateLength()
 		
 	updateLength: ->
@@ -156,7 +156,7 @@ class speedr.SortedMap
 		if i == -1 then return null
 		return @vals[i]
 		
-	insert: (items...) ->
+	set: (items...) ->
 		if not items? then return @length
 		# passed object
 		if isObject(items[0])
@@ -166,7 +166,7 @@ class speedr.SortedMap
 			items = tempItems
 		for item in items
 			if not isArray(item)
-				throw 'Attempted insert of invalid item.'
+				throw 'Attempted set of invalid item.'
 			i = speedr.binarySearch(@keys, item[0])
 			@keys.splice(i, 0, item[0])
 			@vals.splice(i, 0, item[1])
@@ -237,10 +237,10 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		# so, just repeat the constructor
 		@keys = []
 		@vals = []
-		@insert(items...)
+		@set(items...)
 		@updateLength()
 		
-	insert: (items...) ->
+	set: (items...) ->
 		if not items? then return @length
 		# passed object
 		if isObject(items[0])
@@ -250,7 +250,7 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 			items = tempItems
 		for item in items
 			if not isArray(item)
-				throw 'Attempted insert of invalid item.'
+				throw 'Attempted set of invalid item.'
 			i = speedr.binarySearch(@keys, item[0])
 			@keys.splice(i, 0, item[0])
 			@vals.splice(i, 0, item[1])
