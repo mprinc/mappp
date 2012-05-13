@@ -53,30 +53,28 @@ class BaseMap
 
 # unsorted map with unique keys
 class speedr.Map extends BaseMap
-	constructor: (@items = {}) ->
-		if not isObject(@items)
-			throw 'Map requires an object for construction.'
-			
-		[@keys, junk] = speedr.getArrays(@items)
+	constructor: (items...) ->
+		@keys = []
+		@items = {}
+		@set(items...)
 		@updateLength()
 		
 	get: (key) ->
+		if not key? then return null
 		return @items[key]
 		
-	set: (obj, others...) ->
-		pushPair = (key, val) =>
-			if not @items[key]?
-				@keys.push(key)
-			@items[key] = val
-		# passed an object
-		if others.length == 0
-			for key,val of obj
-				pushPair(key, val)
-		# passed key, element pairs as normal args
-		else
-			pushPair(obj, others[0])
-			for i in [1...others.length] by 2
-				pushPair(others[i], others[i + 1])
+	set: (items...) ->
+		if not items? then return @length
+		# passed object
+		if isObject(items[0]) then items = toArrayPairs(items[0])
+		for item in items
+			if not isArray(item)
+				throw 'Attempted set of invalid item.'
+			# key = item[0]
+			# val = item[1]
+			if not @items[item[0]]?
+				@keys[@keys.length] = item[0]
+			@items[item[0]] = item[1]
 		return @updateLength()
 		
 	remove: (key) ->
@@ -156,6 +154,8 @@ class speedr.SortedMap extends BaseMap
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
+			# key = item[0]
+			# val = item[1]
 			i = speedr.binarySearch(@keys, item[0])
 			@keys.splice(i, 0, item[0])
 			@vals.splice(i, 0, item[1])

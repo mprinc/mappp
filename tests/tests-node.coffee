@@ -32,8 +32,8 @@ blah.set(b: 'yoje')
 test 'Map 2', blah.items, { a: 8, b: 'yoje', c: 10 }
 
 boom = 'BOOM'
-blah.set(boom, 'shakalaka', '3', 12)
-blah.set(boom, 'shakalaka', '3', 12)
+blah.set([boom, 'shakalaka'], ['3', 12])
+blah.set([boom, 'shakalaka'], ['3', 12])
 test 'Map 3', blah.items, 
 	a: 8, b: 'yoje', c: 10, 'BOOM': 'shakalaka', 3: 12
 	
