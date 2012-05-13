@@ -204,6 +204,21 @@ speedr.Map = (function() {
 
 })();
 
+speedr.MultiMap = (function(_super) {
+
+  __extends(MultiMap, _super);
+
+  MultiMap.name = 'MultiMap';
+
+  function MultiMap() {
+    var items;
+    items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+  }
+
+  return MultiMap;
+
+})(speedr.Map);
+
 speedr.SortedMap = (function() {
 
   SortedMap.name = 'SortedMap';
@@ -232,26 +247,6 @@ speedr.SortedMap = (function() {
       return null;
     }
     return this.vals[i];
-  };
-
-  SortedMap.prototype.keyPosition = function(key) {
-    var i;
-    i = speedr.binarySearch(this.keys, key, true);
-    if (i === -1) {
-      return null;
-    } else {
-      return this.length - 1 - i;
-    }
-  };
-
-  SortedMap.prototype.valPosition = function(val) {
-    var i;
-    i = speedr.binarySearch(this.vals, val, true);
-    if (i === -1) {
-      return null;
-    } else {
-      return this.length - 1 - i;
-    }
   };
 
   SortedMap.prototype.insert = function() {
@@ -368,10 +363,6 @@ speedr.SortedMultiMap = (function(_super) {
     this.insert.apply(this, items);
     this.updateLength();
   }
-
-  SortedMultiMap.prototype.keyPosition = function() {};
-
-  SortedMultiMap.prototype.valPosition = function() {};
 
   SortedMultiMap.prototype.insert = function() {
     var i, item, items, _i, _len;
