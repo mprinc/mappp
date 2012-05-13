@@ -23,6 +23,7 @@ isArray = Array.isArray or (obj) ->
 	return toString.call(obj) == '[object Array]'
 
 isObject = (obj) ->
+	if isArray(obj) then return false
 	return obj == Object(obj)
 
 
@@ -157,6 +158,12 @@ class speedr.SortedMap
 		
 	insert: (items...) ->
 		if not items? then return @length
+		# passed object
+		if isObject(items[0])
+			tempItems = []
+			for k,v of items[0]
+				tempItems[tempItems.length] = [k,v]
+			items = tempItems
 		for item in items
 			if not isArray(item)
 				throw 'Attempted insert of invalid item.'
@@ -235,6 +242,12 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		
 	insert: (items...) ->
 		if not items? then return @length
+		# passed object
+		if isObject(items[0])
+			tempItems = []
+			for k,v of items[0]
+				tempItems[tempItems.length] = [k,v]
+			items = tempItems
 		for item in items
 			if not isArray(item)
 				throw 'Attempted insert of invalid item.'
