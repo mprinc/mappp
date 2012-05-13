@@ -25,18 +25,13 @@ isArray = Array.isArray or (obj) ->
 isObject = (obj) ->
 	if isArray(obj) then return false
 	return obj == Object(obj)
-
-
-speedr.getArrays = (obj) ->
-	if not isObject(obj)
-		throw new Error 'No keys for non-object'
-	keys = []
-	vals = []
+	
+toArrayPairs = (obj) ->
+	tempItems = []
 	for k,v of obj
-		if hasOwnProperty.call(obj, k)
-			keys[keys.length] = k
-			vals[vals.length] = v
-	return [keys, vals]
+		tempItems[tempItems.length] = [k,v]
+	return tempItems
+
 
 speedr.binarySearch = (arr, val, exactMatch = false) ->
 	h = arr.length
@@ -157,11 +152,7 @@ class speedr.SortedMap extends BaseMap
 	set: (items...) ->
 		if not items? then return @length
 		# passed object
-		if isObject(items[0])
-			tempItems = []
-			for k,v of items[0]
-				tempItems[tempItems.length] = [k,v]
-			items = tempItems
+		if isObject(items[0]) then items = toArrayPairs(items[0])
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
@@ -241,11 +232,7 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 	set: (items...) ->
 		if not items? then return @length
 		# passed object
-		if isObject(items[0])
-			tempItems = []
-			for k,v of items[0]
-				tempItems[tempItems.length] = [k,v]
-			items = tempItems
+		if isObject(items[0]) then items = toArrayPairs(items[0])
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
