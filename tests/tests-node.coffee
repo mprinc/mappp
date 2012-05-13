@@ -87,6 +87,8 @@ msorty.clear()
 test 'SortedMap clear', msorty.keys, []
 test 'SortedMap clear', msorty.vals, []
 
+msorty = null
+
 
 # SortedMultiMap
 msorty = new speedr.SortedMultiMap([420, 'a'], [69, 'b'], [500, 'c'], [123, 'd'])
