@@ -48,20 +48,22 @@ speedr.binarySearch = (arr, val, exactMatch = false) ->
 		if arr[h] == val then return h
 		else return -1
 	else return h
+	
+	
+class BaseMap
+	updateLength: ->
+		@length = @keys.length
+		return @length
 		
 
 # unsorted map with unique keys
-class speedr.Map
+class speedr.Map extends BaseMap
 	constructor: (@items = {}) ->
 		if not isObject(@items)
 			throw 'Map requires an object for construction.'
 			
 		[@keys, junk] = speedr.getArrays(@items)
 		@updateLength()
-		
-	updateLength: ->
-		@length = @keys.length
-		return @length
 		
 	get: (key) ->
 		return @items[key]
@@ -139,16 +141,12 @@ class speedr.MultiMap extends speedr.Map
 	
 # a map that is sorted upon insertion.
 # keys must be unique
-class speedr.SortedMap
+class speedr.SortedMap extends BaseMap
 	constructor: (items...) ->
 		@keys = []
 		@vals = []
 		@set(items...)
 		@updateLength()
-		
-	updateLength: ->
-		@length = @keys.length
-		return @length
 		
 	get: (key) ->
 		if not key? then return null
