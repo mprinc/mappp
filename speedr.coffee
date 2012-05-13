@@ -141,8 +141,16 @@ class speedr.SortedMap extends BaseMap
 			key = item[0]
 			val = item[1]
 			i = speedr.binarySearch(@keys, key)
-			@keys.splice(i, 0, key)
-			@vals.splice(i, 0, val)
+			
+			# if the key already exists in the map
+			if @keys[i] == key
+				# replace the key's associated value
+				@vals[i] = val
+			else
+				# insert a new item
+				@keys.splice(i, 0, key)
+				@vals.splice(i, 0, val)
+				
 		return @updateLength()
 				
 	remove: (key) ->

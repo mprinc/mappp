@@ -69,14 +69,16 @@ test 'SortedMap 6 ', msorty.hasVal('e'), false
 len = 1000
 for i in [0...len]
 	t = rambo(10000000) / rambo(1000)
+	# only increment resultLength if the key is new
+	# (since Map keys are unique)
+	if not msorty.hasKey(t) then resultLength++
 	msorty.set([t, 0])
-	resultLength++
 	if chance(5)
 		msorty.remove(t)
 		resultLength--
 	if chance(5)
+		if not msorty.hasKey(t) then resultLength++
 		msorty.set([t, 0])
-		resultLength++
 	
 test 'SortedMap length', msorty.length, resultLength
 
