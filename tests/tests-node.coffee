@@ -44,6 +44,7 @@ test 'Map 4', blah.items,
 blah.each (k,v) ->
 	# console.log "#{k}, #{v}"
 	test 'Map each', k? and v?, true
+# , 0, blah.length, 2
 	
 ass = {}
 for i in [0...blah.length]

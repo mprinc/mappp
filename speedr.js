@@ -67,9 +67,18 @@ BaseMap = (function() {
     return this.length;
   };
 
-  BaseMap.prototype.each = function(f) {
-    var i, k, v, _i, _ref;
-    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+  BaseMap.prototype.each = function(f, start, end, step) {
+    var i, k, v, _i;
+    if (start == null) {
+      start = 0;
+    }
+    if (end == null) {
+      end = this.length;
+    }
+    if (step == null) {
+      step = 1;
+    }
+    for (i = _i = start; start <= end ? _i < end : _i > end; i = _i += step) {
       k = this.iterK(i);
       v = this.iterV(i);
       f(k, v);
@@ -77,17 +86,35 @@ BaseMap = (function() {
     return null;
   };
 
-  BaseMap.prototype.eachKey = function(f) {
-    var i, _i, _ref;
-    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+  BaseMap.prototype.eachKey = function(f, start, end, step) {
+    var i, _i;
+    if (start == null) {
+      start = 0;
+    }
+    if (end == null) {
+      end = this.length;
+    }
+    if (step == null) {
+      step = 1;
+    }
+    for (i = _i = start; start <= end ? _i < end : _i > end; i = _i += step) {
       f(this.iterK(i));
     }
     return null;
   };
 
-  BaseMap.prototype.eachVal = function(f) {
-    var i, _i, _ref;
-    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
+  BaseMap.prototype.eachVal = function(f, start, end, step) {
+    var i, _i;
+    if (start == null) {
+      start = 0;
+    }
+    if (end == null) {
+      end = this.length;
+    }
+    if (step == null) {
+      step = 1;
+    }
+    for (i = _i = start; start <= end ? _i < end : _i > end; i = _i += step) {
       f(this.iterV(i));
     }
     return null;

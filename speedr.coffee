@@ -34,20 +34,20 @@ class BaseMap
 		@length = @keys.length
 		return @length
 		
-	each: (f) ->
-		for i in [0...@length]
+	each: (f, start=0, end=@length, step=1) ->
+		for i in [start...end] by step
 			k = @iterK(i)
 			v = @iterV(i)
 			f(k,v)
 		return null
 			
-	eachKey: (f) ->
-		for i in [0...@length]
+	eachKey: (f, start=0, end=@length, step=1) ->
+		for i in [start...end] by step
 			f(@iterK(i))
 		return null
 			
-	eachVal: (f) ->
-		for i in [0...@length]
+	eachVal: (f, start=0, end=@length, step=1) ->
+		for i in [start...end] by step
 			f(@iterV(i))
 		return null
 		
