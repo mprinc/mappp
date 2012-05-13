@@ -41,6 +41,10 @@ blah.remove('b')
 test 'Map 4', blah.items, 
 	a: 8, c: 10, 'BOOM': 'shakalaka', 3: 12
 	
+blah.each (k,v) ->
+	# console.log "#{k}, #{v}"
+	test 'Map each', k? and v?, true
+	
 ass = {}
 for i in [0...blah.length]
 	[k,v] = blah.iter(i)
@@ -116,6 +120,9 @@ for i in [0...len]
 	if chance(5)
 		msorty.set([t, 0])
 		resultLength++
+	
+msorty.each (k,v) ->
+	test 'Map each', k? and v?, true
 	
 test 'SortedMultiMap length', msorty.length, resultLength
 
