@@ -325,11 +325,19 @@ speedr.SortedMultiMap = (function(_super) {
     items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
     this.keys = [];
     this.vals = [];
-    this.set.apply(this, items);
+    this.insert.apply(this, items);
     this.updateLength();
   }
 
+  SortedMultiMap.prototype.get = function() {
+    return null;
+  };
+
   SortedMultiMap.prototype.set = function() {
+    return null;
+  };
+
+  SortedMultiMap.prototype.insert = function() {
     var i, item, items, key, val, _i, _len;
     items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
     if (!(items[0] != null)) {
@@ -341,7 +349,7 @@ speedr.SortedMultiMap = (function(_super) {
     for (_i = 0, _len = items.length; _i < _len; _i++) {
       item = items[_i];
       if (!isArray(item)) {
-        throw 'Attempted set of invalid item.';
+        throw 'Attempted insert of invalid item.';
       }
       key = item[0];
       val = item[1];

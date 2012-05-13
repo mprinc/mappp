@@ -101,21 +101,21 @@ msorty = null
 msorty = new speedr.SortedMultiMap([420, 'a'], [69, 'b'], [500, 'c'], [123, 'd'])
 resultLength = 4
 
-test 'SortedMultiMap 1 ', msorty.get(420), 'a'
-test 'SortedMultiMap 2 ', msorty.get(69), 'b'
+# test 'SortedMultiMap 1 ', msorty.get(420), 'a'
+# test 'SortedMultiMap 2 ', msorty.get(69), 'b'
 test 'SortedMultiMap 3 ', msorty.hasKey(420), true
 test 'SortedMultiMap 4 ', msorty.hasKey(100), false
 
 len = 1000
 for i in [0...len]
 	t = rambo(10000000) / rambo(1000)
-	msorty.set([t, 0])
+	msorty.insert([t, 0])
 	resultLength++
 	if chance(5)
 		msorty.remove(t)
 		resultLength--
 	if chance(5)
-		msorty.set([t, 0])
+		msorty.insert([t, 0])
 		resultLength++
 	
 msorty.each (k,v) ->

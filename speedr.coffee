@@ -185,16 +185,19 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		# so, just repeat the constructor
 		@keys = []
 		@vals = []
-		@set(items...)
+		@insert(items...)
 		@updateLength()
 		
-	set: (items...) ->
+	get: -> return null # in order to get something, we'd have to return a range
+	set: -> return null
+	
+	insert: (items...) ->
 		if not items[0]? then return @length
 		# passed object
 		if isObjectLit(items[0]) then items = toArrayPairs(items[0])
 		for item in items
 			if not isArray(item)
-				throw 'Attempted set of invalid item.'
+				throw 'Attempted insert of invalid item.'
 			key = item[0]
 			val = item[1]
 			i = speedr.binarySearch(@keys, key)
