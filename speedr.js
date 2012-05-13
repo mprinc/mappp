@@ -169,18 +169,6 @@ speedr.Map = (function(_super) {
     return this.items[key] != null;
   };
 
-  Map.prototype.hasVal = function(val) {
-    var i, result, _i, _ref;
-    result = false;
-    for (i = _i = 0, _ref = this.length; 0 <= _ref ? _i < _ref : _i > _ref; i = 0 <= _ref ? ++_i : --_i) {
-      if (val === this.iterV(i)) {
-        result = true;
-        break;
-      }
-    }
-    return result;
-  };
-
   Map.prototype.clear = function() {
     this.items = {};
     this.revKeys = {};
@@ -192,21 +180,6 @@ speedr.Map = (function(_super) {
   return Map;
 
 })(BaseMap);
-
-speedr.MultiMap = (function(_super) {
-
-  __extends(MultiMap, _super);
-
-  MultiMap.name = 'MultiMap';
-
-  function MultiMap() {
-    var items;
-    items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-  }
-
-  return MultiMap;
-
-})(speedr.Map);
 
 speedr.SortedMap = (function(_super) {
 
@@ -293,14 +266,6 @@ speedr.SortedMap = (function(_super) {
 
   SortedMap.prototype.hasKey = function(key) {
     if (speedr.binarySearch(this.keys, key, true) === -1) {
-      return false;
-    } else {
-      return true;
-    }
-  };
-
-  SortedMap.prototype.hasVal = function(val) {
-    if (speedr.binarySearch(this.vals, val, true) === -1) {
       return false;
     } else {
       return true;
