@@ -53,12 +53,10 @@ resultLength = 4
 
 test 'SortedMap 1 ', msorty.get(420), 'a'
 test 'SortedMap 2 ', msorty.get(69), 'b'
-test 'SortedMap 3 ', msorty.keyPosition(69), 0
-test 'SortedMap 4 ', msorty.keyPosition(420), 2
-test 'SortedMap 5 ', msorty.hasKey(420), true
-test 'SortedMap 6 ', msorty.hasKey(100), false
-test 'SortedMap 7 ', msorty.hasVal('c'), true
-test 'SortedMap 8 ', msorty.hasVal('e'), false
+test 'SortedMap 3 ', msorty.hasKey(420), true
+test 'SortedMap 4 ', msorty.hasKey(100), false
+test 'SortedMap 5 ', msorty.hasVal('c'), true
+test 'SortedMap 6 ', msorty.hasVal('e'), false
 
 len = 1000
 for i in [0...len]
@@ -96,12 +94,10 @@ resultLength = 4
 
 test 'SortedMultiMap 1 ', msorty.get(420), 'a'
 test 'SortedMultiMap 2 ', msorty.get(69), 'b'
-# test 'SortedMultiMap 3 ', msorty.keyPosition(69), 0
-# test 'SortedMultiMap 4 ', msorty.keyPosition(420), 2
-test 'SortedMultiMap 5 ', msorty.hasKey(420), true
-test 'SortedMultiMap 6 ', msorty.hasKey(100), false
-test 'SortedMultiMap 7 ', msorty.hasVal('c'), true
-test 'SortedMultiMap 8 ', msorty.hasVal('e'), false
+test 'SortedMultiMap 3 ', msorty.hasKey(420), true
+test 'SortedMultiMap 4 ', msorty.hasKey(100), false
+test 'SortedMultiMap 5 ', msorty.hasVal('c'), true
+test 'SortedMultiMap 6 ', msorty.hasVal('e'), false
 
 len = 1000
 for i in [0...len]
