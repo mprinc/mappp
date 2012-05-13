@@ -110,11 +110,6 @@ class speedr.Map extends BaseMap
 		@updateLength()
 		return null
 		
-
-# unsorted map that allows for duplicate keys	
-class speedr.MultiMap extends speedr.Map
-	constructor: (items...) ->
-		
 	
 # a map that is sorted upon insertion.
 # keys must be unique
