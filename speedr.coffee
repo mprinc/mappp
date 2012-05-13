@@ -65,7 +65,7 @@ class speedr.Map extends BaseMap
 		return @items[key]
 		
 	set: (items...) ->
-		if not items? then return @length
+		if not items[0]? then return @length
 		# passed object
 		if isObject(items[0]) then items = toArrayPairs(items[0])
 		for item in items
@@ -119,7 +119,7 @@ class speedr.SortedMap extends BaseMap
 		return @vals[i]
 		
 	set: (items...) ->
-		if not items? then return @length
+		if not items[0]? then return @length
 		# passed object
 		if isObject(items[0]) then items = toArrayPairs(items[0])
 		for item in items
@@ -186,7 +186,7 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		@updateLength()
 		
 	set: (items...) ->
-		if not items? then return @length
+		if not items[0]? then return @length
 		# passed object
 		if isObject(items[0]) then items = toArrayPairs(items[0])
 		for item in items
