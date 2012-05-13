@@ -46,7 +46,8 @@ test 'Map 5', blah.length, 5
 test 'Map 6', blah.hasVal('yoje'), true
 test 'Map 7', blah.hasVal('yaaaje'), false
 
-# sortedMap
+
+# SortedMap
 msorty = new speedr.SortedMap([420, 'a'], [69, 'b'], [500, 'c'], [123, 'd'])
 resultLength = 4
 
@@ -88,24 +89,48 @@ msorty.clear()
 test 'SortedMap clear', msorty.keys, []
 test 'SortedMap clear', msorty.vals, []
 
-# sortedTable
-sorty = new speedr.SortedTable()
+
+# SortedMultiMap
+msorty = new speedr.SortedMultiMap([420, 'a'], [69, 'b'], [500, 'c'], [123, 'd'])
+resultLength = 4
+
+test 'SortedMultiMap 1 ', msorty.get(420), 'a'
+test 'SortedMultiMap 2 ', msorty.get(69), 'b'
+# test 'SortedMultiMap 3 ', msorty.keyPosition(69), 0
+# test 'SortedMultiMap 4 ', msorty.keyPosition(420), 2
+test 'SortedMultiMap 5 ', msorty.hasKey(420), true
+test 'SortedMultiMap 6 ', msorty.hasKey(100), false
+test 'SortedMultiMap 7 ', msorty.hasVal('c'), true
+test 'SortedMultiMap 8 ', msorty.hasVal('e'), false
+
 len = 1000
 for i in [0...len]
 	t = rambo(10000000) / rambo(1000)
-	sorty.insert(t, 0)
-	if chance(5) then sorty.remove(t)
-	if chance(5) then sorty.insert(t, 0)
+	msorty.insert([t, 0])
+	resultLength++
+	if chance(5)
+		msorty.remove(t)
+		resultLength--
+	if chance(5)
+		msorty.insert([t, 0])
+		resultLength++
+	
+test 'SortedMultiMap length', msorty.length, resultLength
+
 results = []
-for i in [0...sorty.length]
-	results.splice(0, 0, sorty.iterK(i))
+for i in [0...msorty.length]
+	results.splice(0, 0, msorty.iterK(i))
 for i in [0...results.length]
-	test 'SortedTable loop', (results[i - 1]? and not (results[i] <= results[i - 1])) or
-							 (results[i + 1]? and not (results[i] >= results[i + 1])), false
+	test 'SortedMultiMap loop',  (results[i - 1]? and not (results[i] <= results[i - 1])) or
+							(results[i + 1]? and not (results[i] >= results[i + 1])), false
 	# in order to give the specific place where it went wrong:
 	if  (results[i - 1]? and not (results[i] <= results[i - 1])) or
 		(results[i + 1]? and not (results[i] >= results[i + 1]))
 			console.log "ERROR: #{results[i - 1]} > #{results[i]} > #{results[i + 1]}"
+
+msorty.clear()
+test 'SortedMultiMap clear', msorty.keys, []
+test 'SortedMultiMap clear', msorty.vals, []
 
 
 console.log "** #{testCount} tests completed #{STATUS} **"

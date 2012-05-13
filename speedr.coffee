@@ -184,8 +184,8 @@ class speedr.SortedMap
 	# (from smaller to larger)
 	iter: (counter) ->
 		return [@keys[@length - 1 - counter], @vals[@length - 1 - counter]]
-	iterK: (counter) -> @keys[@length - 1 - counter]
-	iterV: (counter) -> @vals[@length - 1 - counter]
+	iterK: (counter) -> return @keys[@length - 1 - counter]
+	iterV: (counter) -> return @vals[@length - 1 - counter]
 		
 	each: (f) ->
 		for i in [0...@length]
@@ -227,24 +227,35 @@ class speedr.SortedMap
 # stored under a single key.  thus, item removal requires both
 # the key *and* the value for if the value is something like a 
 # class instance.
-class speedr.SortedTable
-	constructor: () ->
+class speedr.SortedMultiMap extends speedr.SortedMap
+	constructor: (items...) ->
+		# can't do super(items...) as it would call super many times
+		# so, just repeat the constructor
 		@keys = []
 		@vals = []
+		@insert(items...)
 		@updateLength()
 		
-	updateLength: ->
-		@length = @keys.length
-		return @length
+	keyPosition: ->
+	valPosition: ->
+		# shouldn't exist?  maybe it could return ranges?
 		
-	insert: (key, val) ->
-		i = speedr.binarySearch(@keys, key)
-		@keys.splice(i, 0, key)
-		@vals.splice(i, 0, val)
+	insert: (items...) ->
+		if not items? then return @length
+		for item in items
+			if not isArray(item)
+				throw 'Attempted insert of invalid item.'
+			i = speedr.binarySearch(@keys, item[0])
+			@keys.splice(i, 0, item[0])
+			@vals.splice(i, 0, item[1])
 		return @updateLength()
 		
 	remove: (key, val) ->
-		if not key? then return
+		# if we have multiple items with the same key,
+		# we also need to match the value to remove an item.
+		# note that not passing a value when you have copied keys
+		# will result in a random matching entry getting removed
+		if not key? then return @length
 		i = speedr.binarySearch(@keys, key)
 		if val?
 			j = i - 1
@@ -257,20 +268,8 @@ class speedr.SortedTable
 				j--
 		@keys.splice(i, 1)
 		@vals.splice(i, 1)
-		@updateLength()
+		return @updateLength()
 		
-	pop: ->
-		@keys.pop()
-		@vals.pop()
-		@updateLength()
-		
-	# note that these iterate from the top down
-	# (from smaller to larger)
-	iter: (counter) ->
-		return [@keys[@length - 1 - counter], @vals[@length - 1 - counter]]
-	iterK: (counter) -> @keys[@length - 1 - counter]
-	iterV: (counter) -> @vals[@length - 1 - counter]
-	
 	
 # export functions
 if module? and exports?
