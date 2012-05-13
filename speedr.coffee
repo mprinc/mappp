@@ -71,12 +71,12 @@ class speedr.Map extends BaseMap
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
-			# key = item[0]
-			# val = item[1]
-			if not @items[item[0]]?
-				@revKeys[item[0]] = @keys.length
-				@keys[@keys.length] = item[0]
-			@items[item[0]] = item[1]
+			key = item[0]
+			val = item[1]
+			if not @items[key]?
+				@revKeys[key] = @keys.length
+				@keys[@keys.length] = key
+			@items[key] = val
 		return @updateLength()
 		
 	remove: (key) ->
@@ -138,11 +138,11 @@ class speedr.SortedMap extends BaseMap
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
-			# key = item[0]
-			# val = item[1]
-			i = speedr.binarySearch(@keys, item[0])
-			@keys.splice(i, 0, item[0])
-			@vals.splice(i, 0, item[1])
+			key = item[0]
+			val = item[1]
+			i = speedr.binarySearch(@keys, key)
+			@keys.splice(i, 0, key)
+			@vals.splice(i, 0, val)
 		return @updateLength()
 				
 	remove: (key) ->
@@ -203,11 +203,11 @@ class speedr.SortedMultiMap extends speedr.SortedMap
 		for item in items
 			if not isArray(item)
 				throw 'Attempted set of invalid item.'
-			# key = item[0]
-			# val = item[1]
-			i = speedr.binarySearch(@keys, item[0])
-			@keys.splice(i, 0, item[0])
-			@vals.splice(i, 0, item[1])
+			key = item[0]
+			val = item[1]
+			i = speedr.binarySearch(@keys, key)
+			@keys.splice(i, 0, key)
+			@vals.splice(i, 0, val)
 		return @updateLength()
 		
 	remove: (key, val) ->
