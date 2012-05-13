@@ -119,7 +119,7 @@ speedr.Map = (function(_super) {
   Map.prototype.set = function() {
     var item, items, key, val, _i, _len;
     items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    if (!(items != null)) {
+    if (!(items[0] != null)) {
       return this.length;
     }
     if (isObject(items[0])) {
@@ -211,7 +211,7 @@ speedr.SortedMap = (function(_super) {
   SortedMap.prototype.set = function() {
     var i, item, items, key, val, _i, _len;
     items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    if (!(items != null)) {
+    if (!(items[0] != null)) {
       return this.length;
     }
     if (isObject(items[0])) {
@@ -301,7 +301,7 @@ speedr.SortedMultiMap = (function(_super) {
   SortedMultiMap.prototype.set = function() {
     var i, item, items, key, val, _i, _len;
     items = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    if (!(items != null)) {
+    if (!(items[0] != null)) {
       return this.length;
     }
     if (isObject(items[0])) {
