@@ -51,8 +51,6 @@ for i in [0...blah.length]
 	ass[k] = v
 test 'Map 5', ass, blah.items
 test 'Map 6', blah.length, 4
-test 'Map 7', blah.hasVal('shakalaka'), true
-test 'Map 8', blah.hasVal('yaaaje'), false
 
 
 # SortedMap
@@ -63,8 +61,6 @@ test 'SortedMap 1 ', msorty.get(420), 'a'
 test 'SortedMap 2 ', msorty.get(69), 'b'
 test 'SortedMap 3 ', msorty.hasKey(420), true
 test 'SortedMap 4 ', msorty.hasKey(100), false
-test 'SortedMap 5 ', msorty.hasVal('c'), true
-test 'SortedMap 6 ', msorty.hasVal('e'), false
 
 len = 1000
 for i in [0...len]
@@ -108,8 +104,6 @@ test 'SortedMultiMap 1 ', msorty.get(420), 'a'
 test 'SortedMultiMap 2 ', msorty.get(69), 'b'
 test 'SortedMultiMap 3 ', msorty.hasKey(420), true
 test 'SortedMultiMap 4 ', msorty.hasKey(100), false
-test 'SortedMultiMap 5 ', msorty.hasVal('c'), true
-test 'SortedMultiMap 6 ', msorty.hasVal('e'), false
 
 len = 1000
 for i in [0...len]

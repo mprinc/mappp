@@ -95,14 +95,6 @@ class speedr.Map extends BaseMap
 	hasKey: (key) ->
 		return @items[key]?
 		
-	hasVal: (val) ->
-		result = false
-		for i in [0...@length]
-			if val == @iterV(i)
-				result = true
-				break
-		return result
-		
 	clear: ->
 		@items = {}
 		@revKeys = {}
@@ -169,12 +161,6 @@ class speedr.SortedMap extends BaseMap
 	
 	hasKey: (key) ->
 		if speedr.binarySearch(@keys, key, true) == -1
-			return false
-		else
-			return true
-		
-	hasVal: (val) ->
-		if speedr.binarySearch(@vals, val, true) == -1
 			return false
 		else
 			return true
