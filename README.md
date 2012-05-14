@@ -1,4 +1,4 @@
-Speedr
+Speedr.js
 ====
 Improved javascript objects.
 
