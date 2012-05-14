@@ -10,7 +10,7 @@ execAndPipe = (execString, restart) ->
 		# console.log "-- #{execString} --"
 		process.stdout.write data.toString()
 			
-task 'watch', 'Compile speedr in watch mode', ->
+task 'watch', 'Compile Speedr in watch mode', ->
 	execAndPipe 'coffee -cbw speedr.coffee'
 
 task 'w', 'Shorthand for "watch"', -> invoke 'watch'

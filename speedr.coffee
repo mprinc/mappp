@@ -1,6 +1,6 @@
 ###
 #
-# speedr.js is Copytight (C) 2012 David Druelinger
+# Speedr is Copytight (C) 2012 David Druelinger
 # 
 # Permission is hereby granted, free of charge, to any person obtaining 
 # a copy of this software and associated documentation files (the 
