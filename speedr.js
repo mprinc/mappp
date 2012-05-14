@@ -104,8 +104,8 @@ BaseMap = (function() {
       step = 1;
     }
     for (i = _i = start; start <= end ? _i < end : _i > end; i = _i += step) {
-      k = this.iterK(i);
-      v = this.iterV(i);
+      k = this.iterKey(i);
+      v = this.iterVal(i);
       f(k, v);
     }
     return null;
@@ -123,7 +123,7 @@ BaseMap = (function() {
       step = 1;
     }
     for (i = _i = start; start <= end ? _i < end : _i > end; i = _i += step) {
-      f(this.iterK(i));
+      f(this.iterKey(i));
     }
     return null;
   };
@@ -140,7 +140,7 @@ BaseMap = (function() {
       step = 1;
     }
     for (i = _i = start; start <= end ? _i < end : _i > end; i = _i += step) {
-      f(this.iterV(i));
+      f(this.iterVal(i));
     }
     return null;
   };
@@ -213,11 +213,11 @@ speedr.Map = (function(_super) {
     return [this.keys[counter], this.items[this.keys[counter]]];
   };
 
-  Map.prototype.iterK = function(counter) {
+  Map.prototype.iterKey = function(counter) {
     return this.keys[counter];
   };
 
-  Map.prototype.iterV = function(counter) {
+  Map.prototype.iterVal = function(counter) {
     return this.items[this.keys[counter]];
   };
 
@@ -312,11 +312,11 @@ speedr.SortedMap = (function(_super) {
     return [this.keys[this.length - 1 - counter], this.vals[this.length - 1 - counter]];
   };
 
-  SortedMap.prototype.iterK = function(counter) {
+  SortedMap.prototype.iterKey = function(counter) {
     return this.keys[this.length - 1 - counter];
   };
 
-  SortedMap.prototype.iterV = function(counter) {
+  SortedMap.prototype.iterVal = function(counter) {
     return this.vals[this.length - 1 - counter];
   };
 
