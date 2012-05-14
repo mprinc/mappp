@@ -1,7 +1,7 @@
 {
   "name": "speedr",
   "description": "Improved javascript objects",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": {
     "name": "Dave Druelinger"
   },
@@ -14,5 +14,5 @@
     "type": "git",
     "url": "git://github.com/genericdave/speedr.js.git"
   },
-  "main": "speedr"
+  "main": "index"
 }
