@@ -18,6 +18,7 @@ Features
 * No-overhead .length attribute.  Just like with Array.length, Speedr maps keep track of their lengths internally.  Iteration should only be necessary when you're actually doing something useful with the data.
 * Fast sorting using binary search.
 * Duplicate or unique keys for sorted maps.
+* No external dependencies.
 
 Getting Started
 ----
