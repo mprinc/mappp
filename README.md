@@ -52,13 +52,14 @@ Maps can be constructed in two ways
 
 ```javascript
 // From a native javascript object
-var map = new Map({a: 1, b:2});
+var map = new speedr.Map({a: 1, b:2});
 
 // Or by passing a series of arrays as [key, value] pairs
-var map = new Map(['a', 1], ['b', 2]);
+// (Note: construction works the same way for all speedr maps)
+var map = new speedr.SortedMap(['a', 1], ['b', 2]);
 ```
 
-The reason for this is that object literal keys are always strings.  i.e. the key in {1: 'a'} is *not* the number 1, but the string '1'.  Thus, if you want to preserve your numbered keys, you must use the `new Map([1, 'a'], [2, 'b'])` style of construction rather than passing in an object.
+The reason this is important is that object literal keys are always strings.  i.e. the key in {1: 'a'} is *not* the number 1, but the string '1'.  Thus, if you want to preserve your numbered keys, you must use the `new Map([1, 'a'], [2, 'b'])` style of construction rather than passing in an object.
 
 <a name='c2' />
 ### Setting and Inserting
