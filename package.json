@@ -1,0 +1,18 @@
+{
+  "name": "Speedr",
+  "description": "Improved javascript objects",
+  "version": "0.3.0",
+  "author": {
+    "name": "Dave Druelinger"
+  },
+  "keywords": [
+    "Speedr",
+    "object",
+    "map"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/genericdave/speedr.js.git"
+  },
+  "main": "speedr"
+}
