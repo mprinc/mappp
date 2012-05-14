@@ -78,7 +78,7 @@ Installation
 <a name='d2' />
 ### Browser
 * Download [speedr.min.js.](https://raw.github.com/genericdave/speedr.js/master/speedr-min.js)
-* Include it: `<script src='lib/jquery.js'></script>`
+* Include it: `<script src='lib/speedr.min.js'></script>`
 
 <a name='e' />
 Tests and Benchmarks
