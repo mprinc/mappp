@@ -4,7 +4,7 @@ Improved javascript objects.
 
 * [Motivation](#a)
 * [Features](#b)
-* [Getting Started](#c)
+* [Installation](#c)
 	* [Node.js](#c1)
 	* [Browser](#c2)
 * [Tests and Benchmarks](#d)
@@ -32,7 +32,7 @@ Features
 * No external dependencies.
 
 <a name='c' />
-Getting Started
+Installation
 ----
 <a name='c1' />
 ### Node.js
