@@ -37,7 +37,7 @@ Features
 <a name='c' />
 Usage
 ----
-Speedr introduces three new 'Map' classes:
+Speedr currently introduces three new 'Map' classes:
 
 * Map
 	* An unsorted hash map that can only store one value per key (i.e. keys are *unique*).
