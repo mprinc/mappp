@@ -61,19 +61,19 @@ class BaseMap
 		
 	each: (f, start=0, end=@length, step=1) ->
 		for i in [start...end] by step
-			k = @iterK(i)
-			v = @iterV(i)
+			k = @iterKey(i)
+			v = @iterVal(i)
 			f(k,v)
 		return null
 			
 	eachKey: (f, start=0, end=@length, step=1) ->
 		for i in [start...end] by step
-			f(@iterK(i))
+			f(@iterKey(i))
 		return null
 			
 	eachVal: (f, start=0, end=@length, step=1) ->
 		for i in [start...end] by step
-			f(@iterV(i))
+			f(@iterVal(i))
 		return null
 		
 
@@ -117,8 +117,8 @@ class speedr.Map extends BaseMap
 		
 	iter: (counter) ->
 		return [@keys[counter], @items[@keys[counter]]]
-	iterK: (counter) -> @keys[counter]
-	iterV: (counter) -> @items[@keys[counter]]
+	iterKey: (counter) -> @keys[counter]
+	iterVal: (counter) -> @items[@keys[counter]]
 	
 	hasKey: (key) ->
 		return @items[key]?
@@ -184,8 +184,8 @@ class speedr.SortedMap extends BaseMap
 	# (from smaller to larger)
 	iter: (counter) ->
 		return [@keys[@length - 1 - counter], @vals[@length - 1 - counter]]
-	iterK: (counter) -> return @keys[@length - 1 - counter]
-	iterV: (counter) -> return @vals[@length - 1 - counter]
+	iterKey: (counter) -> return @keys[@length - 1 - counter]
+	iterVal: (counter) -> return @vals[@length - 1 - counter]
 	
 	hasKey: (key) ->
 		if speedr.binarySearch(@keys, key, true) == -1

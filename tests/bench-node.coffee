@@ -41,15 +41,15 @@ bench 'speedr.js map each function', ->
 		counter++
 		
 counter = 0
-bench 'speedr.js map iterK function', ->
+bench 'speedr.js map iterKey function', ->
 	for i in [0...map.length]
-		k = map.iterK(i)
+		k = map.iterKey(i)
 		counter++
 		
 counter = 0
-bench 'speedr.js map iterV function', ->
+bench 'speedr.js map iterVal function', ->
 	for i in [0...map.length]
-		v = map.iterV(i)
+		v = map.iterVal(i)
 		counter++
 
 counter = 0

@@ -81,7 +81,7 @@ test 'SortedMap length', msorty.length, resultLength
 
 results = []
 for i in [0...msorty.length]
-	results.splice(0, 0, msorty.iterK(i))
+	results.splice(0, 0, msorty.iterKey(i))
 for i in [0...results.length]
 	test 'SortedMap loop',  (results[i - 1]? and not (results[i] <= results[i - 1])) or
 							(results[i + 1]? and not (results[i] >= results[i + 1])), false
@@ -125,7 +125,7 @@ test 'SortedMultiMap length', msorty.length, resultLength
 
 results = []
 for i in [0...msorty.length]
-	results.splice(0, 0, msorty.iterK(i))
+	results.splice(0, 0, msorty.iterKey(i))
 for i in [0...results.length]
 	test 'SortedMultiMap loop',  (results[i - 1]? and not (results[i] <= results[i - 1])) or
 							(results[i + 1]? and not (results[i] >= results[i + 1])), false
