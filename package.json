@@ -8,7 +8,9 @@
   "keywords": [
     "Speedr",
     "object",
-    "map"
+    "map",
+    "hash",
+    "dictionary"
   ],
   "repository": {
     "type": "git",
