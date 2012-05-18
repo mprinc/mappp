@@ -1,6 +1,6 @@
 {exec} = require 'child_process'
 
-execAndPipe = (execString, restart) ->
+execAndPipe = (execString) ->
 	piper = exec execString
 
 	piper.stderr.on 'data', (data) ->
