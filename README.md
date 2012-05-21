@@ -204,7 +204,7 @@ Tests and Benchmarks
 ----
 * Go try out the [jsPerf benchmarks!](http://jsperf.com/speedr-js-vs-normal-object-iteration/2)
 * To run the tests on Node.js:
-	* Get Coffeescript: `$ sudo npm -g install coffee-script`
+	* Get Coffeescript: `$ npm -g install coffee-script`
 	* cd into your tests directory: `$ cd speedr/tests`
 	* Install test dependencies: `$ npm install`
 	* Run `$ coffee tests-node.coffee` or `$ coffee bench-node.coffee`
