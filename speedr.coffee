@@ -81,13 +81,20 @@ class speedr.Map extends BaseMap
 				@keys[@keys.length] = key
 			@items[key] = val
 		return @updateLength()
-		
+	
+	updateRevKeysAfterDeleting: (position) ->
+		for i in @revKeys
+			if @revKeys[i] > position
+				@revKeys[i]--;
+
 	remove: (key) ->
 		if not key? then return @length
 		if @items[key]?
 			delete @items[key]
-			@keys.splice(@revKeys[key], 1)
+			position = @revKeys[key]
+			@keys.splice(position, 1)
 			delete @revKeys[key]
+			@updateRevKeysAfterDeleting(position)
 		return @updateLength()
 		
 	iter: (counter) ->
