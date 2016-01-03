@@ -114,7 +114,14 @@ sortedMap.each(function(key, val) {
 
 <a name='c3' />
 ### Removing
-Todo...
+
+Implemented only for Map:
+
+```javascript
+console.log(map.get('a')); // 1
+map.remove('a');
+console.log(map.get('a')); // undefined
+```
 
 <a name='c4' />
 ### Length
