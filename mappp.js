@@ -216,8 +216,8 @@ mappp.Map = (function(_super) {
     this.removedKeysPositions.sort(function(a, b){return a-b});
     // console.log("[mappp.Map.removeFastFinish]: this.removedKeysPositions: %s", this.removedKeysPositions);
 
-    console.log("[mappp.Map.removeFastFinish]: this.removedKeysPositions.length: %d, this.removedKeysCount: %d, this.length: %d",
-      this.removedKeysPositions.length, this.removedKeysCount, this.length);
+    // console.log("[mappp.Map.removeFastFinish]: this.removedKeysPositions.length: %d, this.removedKeysCount: %d, this.length: %d",
+    //   this.removedKeysPositions.length, this.removedKeysCount, this.length);
 
     // decrement value for each position in the list
     this.removingDecrements = [];
@@ -235,18 +235,18 @@ mappp.Map = (function(_super) {
       }
       this.removingDecrements[i] = decrement;
     }
-    console.log("[mappp.Map.removeFastFinish]: ultimate decrement: %d", decrement);
+    // console.log("[mappp.Map.removeFastFinish]: ultimate decrement: %d", decrement);
 
-    console.log("[mappp.Map.removeFastFinish]: this.keys.length: %d, this.removedKeysPositions[this.removedKeysPositions.length-1]: %s",
-      this.keys.length, this.removedKeysPositions[this.removedKeysPositions.length-1]);
+    // console.log("[mappp.Map.removeFastFinish]: this.keys.length: %d, this.removedKeysPositions[this.removedKeysPositions.length-1]: %s",
+    //   this.keys.length, this.removedKeysPositions[this.removedKeysPositions.length-1]);
 
     // removing keys in reversed order
     for (var i=this.removedKeysPositions.length-1; i>=0; i--){
       var position = this.removedKeysPositions[i];
       this.keys.splice(position, 1);
     }
-    console.log("[mappp.Map.removeFastFinish]: this.keys.length: %d, this.length: %d",
-      this.keys.length, this.length);
+    // console.log("[mappp.Map.removeFastFinish]: this.keys.length: %d, this.length: %d",
+    //   this.keys.length, this.length);
 
     // updating positions
     for(var i in this.revKeys){
