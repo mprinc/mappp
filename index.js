@@ -1,1 +1,1 @@
-module.exports = require('./speedr');
+module.exports = require('./mappp');

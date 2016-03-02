@@ -1,7 +1,8 @@
 {
-  "name": "speedr",
+  "name": "mappp",
   "version": "0.0.0-semantically-released",
   "description": "Improved javascript objects",
+  "main": "index.js",
   "author": [
     {
       "name": "Dave Druelinger"
@@ -13,6 +14,7 @@
     }
   ],
   "keywords": [
+    "mappp",
     "Speedr",
     "object",
     "map",
