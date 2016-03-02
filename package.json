@@ -2,7 +2,7 @@
   "name": "mappp",
   "version": "0.0.0-semantically-released",
   "description": "Improved javascript objects",
-  "main": "index.js",
+  "main": "index",
   "author": [
     {
       "name": "Dave Druelinger"
@@ -25,15 +25,16 @@
     "type": "git",
     "url": "https://github.com/mprinc/mappp.git"
   },
-  "main": "index",
   "scripts": {
     "test": "cd tests; node tests-node",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "commit": "git-cz"
   },
   "devDependencies": {
     "commitizen": "^2.5.0",
     "cz-conventional-changelog": "^1.1.5",
-    "semantic-release": "^4.3.5"
+    "semantic-release": "^4.3.5",
+    "underscore": "^1.8.3"
   },
   "config": {
     "commitizen": {
