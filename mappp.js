@@ -24,12 +24,12 @@
 #
 */
 
-var BaseMap, isArray, isFunction, isObjectLit, speedr, toArrayPairs,
+var BaseMap, isArray, isFunction, isObjectLit, mappp, toArrayPairs,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; },
   __slice = [].slice;
 
-speedr = {};
+mappp = {};
 
 isArray = Array.isArray || function(obj) {
   return toString.call(obj) === '[object Array]';
@@ -56,7 +56,7 @@ toArrayPairs = function(obj) {
   return tempItems;
 };
 
-speedr.binarySearch = function(arr, val, exactMatch) {
+mappp.binarySearch = function(arr, val, exactMatch) {
   var h, l, m;
   if (exactMatch == null) {
     exactMatch = false;
@@ -150,7 +150,7 @@ BaseMap = (function() {
 
 })();
 
-speedr.Map = (function(_super) {
+mappp.Map = (function(_super) {
 
   __extends(Map, _super);
 
@@ -214,9 +214,9 @@ speedr.Map = (function(_super) {
 
   Map.prototype.removeFastFinish = function() {
     this.removedKeysPositions.sort(function(a, b){return a-b});
-    // console.log("[speedr.Map.removeFastFinish]: this.removedKeysPositions: %s", this.removedKeysPositions);
+    // console.log("[mappp.Map.removeFastFinish]: this.removedKeysPositions: %s", this.removedKeysPositions);
 
-    console.log("[speedr.Map.removeFastFinish]: this.removedKeysPositions.length: %d, this.removedKeysCount: %d, this.length: %d",
+    console.log("[mappp.Map.removeFastFinish]: this.removedKeysPositions.length: %d, this.removedKeysCount: %d, this.length: %d",
       this.removedKeysPositions.length, this.removedKeysCount, this.length);
 
     // decrement value for each position in the list
@@ -235,9 +235,9 @@ speedr.Map = (function(_super) {
       }
       this.removingDecrements[i] = decrement;
     }
-    console.log("[speedr.Map.removeFastFinish]: ultimate decrement: %d", decrement);
+    console.log("[mappp.Map.removeFastFinish]: ultimate decrement: %d", decrement);
 
-    console.log("[speedr.Map.removeFastFinish]: this.keys.length: %d, this.removedKeysPositions[this.removedKeysPositions.length-1]: %s",
+    console.log("[mappp.Map.removeFastFinish]: this.keys.length: %d, this.removedKeysPositions[this.removedKeysPositions.length-1]: %s",
       this.keys.length, this.removedKeysPositions[this.removedKeysPositions.length-1]);
 
     // removing keys in reversed order
@@ -245,13 +245,13 @@ speedr.Map = (function(_super) {
       var position = this.removedKeysPositions[i];
       this.keys.splice(position, 1);
     }
-    console.log("[speedr.Map.removeFastFinish]: this.keys.length: %d, this.length: %d",
+    console.log("[mappp.Map.removeFastFinish]: this.keys.length: %d, this.length: %d",
       this.keys.length, this.length);
 
     // updating positions
     for(var i in this.revKeys){
       var position = this.revKeys[i];
-      // console.log("[speedr.Map.removeFastFinish]: i: %s, this.revKeys[i]: %d, this.removingDecrements[position]: %d",
+      // console.log("[mappp.Map.removeFastFinish]: i: %s, this.revKeys[i]: %d, this.removingDecrements[position]: %d",
       //   i, this.revKeys[i], this.removingDecrements[position]);
       this.revKeys[i] -= this.removingDecrements[position];
       if(this.revKeys[i]<0){
@@ -322,7 +322,7 @@ speedr.Map = (function(_super) {
 
 })(BaseMap);
 
-speedr.SortedMap = (function(_super) {
+mappp.SortedMap = (function(_super) {
 
   __extends(SortedMap, _super);
 
@@ -342,7 +342,7 @@ speedr.SortedMap = (function(_super) {
     if (!(key != null)) {
       return null;
     }
-    i = speedr.binarySearch(this.keys, key, true);
+    i = mappp.binarySearch(this.keys, key, true);
     if (i === -1) {
       return null;
     }
@@ -365,7 +365,7 @@ speedr.SortedMap = (function(_super) {
       }
       key = item[0];
       val = item[1];
-      i = speedr.binarySearch(this.keys, key);
+      i = mappp.binarySearch(this.keys, key);
       if (this.keys[i] === key) {
         this.vals[i] = val;
       } else {
@@ -381,7 +381,7 @@ speedr.SortedMap = (function(_super) {
     if (!(key != null)) {
       return this.length;
     }
-    i = speedr.binarySearch(this.keys, key);
+    i = mappp.binarySearch(this.keys, key);
     this.keys.splice(i, 1);
     this.vals.splice(i, 1);
     return this.updateLength();
@@ -406,7 +406,7 @@ speedr.SortedMap = (function(_super) {
   };
 
   SortedMap.prototype.hasKey = function(key) {
-    if (speedr.binarySearch(this.keys, key, true) === -1) {
+    if (mappp.binarySearch(this.keys, key, true) === -1) {
       return false;
     } else {
       return true;
@@ -424,7 +424,7 @@ speedr.SortedMap = (function(_super) {
 
 })(BaseMap);
 
-speedr.SortedMultiMap = (function(_super) {
+mappp.SortedMultiMap = (function(_super) {
 
   __extends(SortedMultiMap, _super);
 
@@ -463,7 +463,7 @@ speedr.SortedMultiMap = (function(_super) {
       }
       key = item[0];
       val = item[1];
-      i = speedr.binarySearch(this.keys, key);
+      i = mappp.binarySearch(this.keys, key);
       this.keys.splice(i, 0, key);
       this.vals.splice(i, 0, val);
     }
@@ -475,7 +475,7 @@ speedr.SortedMultiMap = (function(_super) {
     if (!(key != null)) {
       return this.length;
     }
-    i = speedr.binarySearch(this.keys, key);
+    i = mappp.binarySearch(this.keys, key);
     if (val != null) {
       j = i - 1;
       while (true) {
@@ -497,10 +497,10 @@ speedr.SortedMultiMap = (function(_super) {
 
   return SortedMultiMap;
 
-})(speedr.SortedMap);
+})(mappp.SortedMap);
 
 if ((typeof module !== "undefined" && module !== null) && (typeof exports !== "undefined" && exports !== null)) {
-  module.exports = speedr;
+  module.exports = mappp;
 } else {
-  window.speedr = speedr;
+  window.mappp = mappp;
 }
