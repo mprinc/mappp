@@ -1,3 +1,6 @@
+# mappp
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url]  [![Coverage Status][coveralls-image]][coveralls-url] [![Dependency Status][depstat-image]][depstat-url]
+
 Improved javascript objects.
 ====
 
@@ -238,3 +241,15 @@ Tests and Benchmarks
 	* cd into your tests directory: `$ cd speedr/tests`
 	* Install test dependencies: `$ npm install`
 	* Run `$ coffee tests-node.coffee` or `$ coffee bench-node.coffee`
+
+	[npm-url]: https://npmjs.org/package/mappp
+	[npm-image]: https://badge.fury.io/js/mappp.png
+
+	[travis-url]: http://travis-ci.org/mprinc/mappp
+	[travis-image]: https://secure.travis-ci.org/mprinc/mappp.png?branch=master
+
+	[coveralls-url]: https://coveralls.io/r/mprinc/mappp
+	[coveralls-image]: https://coveralls.io/repos/mprinc/mappp/badge.png
+
+	[depstat-url]: https://david-dm.org/mprinc/mappp
+	[depstat-image]: https://david-dm.org/mprinc/mappp.png
