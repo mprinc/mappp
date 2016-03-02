@@ -2,24 +2,24 @@
 /*
 #
 # Speedr is Copytight (C) 2012 David Druelinger
-# 
-# Permission is hereby granted, free of charge, to any person obtaining 
-# a copy of this software and associated documentation files (the 
-# "Software"), to deal in the Software without restriction, including 
-# without limitation the rights to use, copy, modify, merge, publish, 
-# distribute, sublicense, and/or sell copies of the Software, and to 
-# permit persons to whom the Software is furnished to do so, subject to 
+#
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the
+# "Software"), to deal in the Software without restriction, including
+# without limitation the rights to use, copy, modify, merge, publish,
+# distribute, sublicense, and/or sell copies of the Software, and to
+# permit persons to whom the Software is furnished to do so, subject to
 # the following conditions:
-# 
-# The above copyright notice and this permission notice shall be included 
+#
+# The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
-# 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
-# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
-# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING 
-# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER 
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+# OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+# FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #
 */
@@ -128,6 +128,7 @@ BaseMap = (function() {
     return null;
   };
 
+  // TODO: fix i fro decrementing
   BaseMap.prototype.eachVal = function(f, start, end, step) {
     var i, _i;
     if (start == null) {
@@ -202,7 +203,81 @@ speedr.Map = (function(_super) {
       if(this.revKeys[i] > position){
         this.revKeys[i]--;
       }
-    }    
+    }
+  };
+
+  Map.prototype.removeFastInit = function() {
+    this.removedKeysPositions = [];
+    this.removedKeysCount = 0;
+    return this;
+  };
+
+  Map.prototype.removeFastFinish = function() {
+    this.removedKeysPositions.sort(function(a, b){return a-b});
+    // console.log("[speedr.Map.removeFastFinish]: this.removedKeysPositions: %s", this.removedKeysPositions);
+
+    console.log("[speedr.Map.removeFastFinish]: this.removedKeysPositions.length: %d, this.removedKeysCount: %d, this.length: %d",
+      this.removedKeysPositions.length, this.removedKeysCount, this.length);
+
+    // decrement value for each position in the list
+    this.removingDecrements = [];
+
+    // build a list of decrements for each position
+
+    var decrement = 0;
+    var removedKeysPosition = undefined;
+    var removedKeysPositionsCopy = this.removedKeysPositions.slice(0);
+    if (removedKeysPositionsCopy.length>0) removedKeysPosition = removedKeysPositionsCopy.shift();
+    for (i=0; i<this.keys.length; i++){
+      if(removedKeysPosition == i){
+        decrement--;
+        if (removedKeysPositionsCopy.length>0) removedKeysPosition = removedKeysPositionsCopy.shift();
+      }
+      this.removingDecrements[i] = decrement;
+    }
+    console.log("[speedr.Map.removeFastFinish]: ultimate decrement: %d", decrement);
+
+    console.log("[speedr.Map.removeFastFinish]: this.keys.length: %d, this.removedKeysPositions[this.removedKeysPositions.length-1]: %s",
+      this.keys.length, this.removedKeysPositions[this.removedKeysPositions.length-1]);
+
+    // removing keys in reversed order
+    for (var i=this.removedKeysPositions.length-1; i>=0; i--){
+      var position = this.removedKeysPositions[i];
+      this.keys.splice(position, 1);
+    }
+    console.log("[speedr.Map.removeFastFinish]: this.keys.length: %d, this.length: %d",
+      this.keys.length, this.length);
+
+    // updating positions
+    for(var i in this.revKeys){
+      var position = this.revKeys[i];
+      // console.log("[speedr.Map.removeFastFinish]: i: %s, this.revKeys[i]: %d, this.removingDecrements[position]: %d",
+      //   i, this.revKeys[i], this.removingDecrements[position]);
+      this.revKeys[i] -= this.removingDecrements[position];
+      if(this.revKeys[i]<0){
+        throw new Error ("For key '"+i+"' position became negative: "+this.revKeys[i]);
+      }
+    }
+    this.updateLength();
+    return this;
+  };
+
+  Map.prototype.removeFast = function(key) {
+    if (!(key != null)) {
+      return this.length;
+    }
+    if (key in this.items) {
+      var position = this.revKeys[key];
+      this.removedKeysPositions.push(position);
+      delete this.revKeys[key];
+      delete this.items[key];
+      this.removedKeysCount++;
+      // item-key from this.keys and positions in this.revKeys will be updated
+      // will be removed at the end of removing process
+    }
+    // TODO: wrong
+    this.length = this.keys.length-this.removedKeysPositions.length;
+    return this.length;
   };
 
   Map.prototype.remove = function(key) {
@@ -214,7 +289,7 @@ speedr.Map = (function(_super) {
       var position = this.revKeys[key];
       this.keys.splice(position, 1);
       delete this.revKeys[key];
-      this.updateRevKeysAfterDeleting(position);
+      // this.updateRevKeysAfterDeleting(position);
     }
     return this.updateLength();
   };
