@@ -1,6 +1,8 @@
-Speedr.js
-====
 Improved javascript objects.
+====
+
+This is forked from [genericdave](https://github.com/genericdave)'s' [Speedr.js](https://www.npmjs.com/package/speedr)
+ in order to extend missing features that were not introduced (deleting items), and also to have a possibility to work in a pure JavaScript not CoffeScript.
 
 * [Motivation](#a)
 * [Features](#b)
@@ -18,6 +20,7 @@ Improved javascript objects.
 * [Tests and Benchmarks](#e)
 
 <a name='a' />
+
 Motivation
 ----
 Javascript is built on objects.  You can use them to make functions or nifty class-like constructs, but mostly we know them from when we {use: 'them', like: {hash: 'maps'}}.
@@ -28,9 +31,10 @@ Javascript objects work well as maps in many cases, but there are big gaps in th
 * Do I really need to loop through and count manually in order to get the number of elements I've defined in an object?
 * What If I need *fast* iteration on Node.js or Chrome?  For small objects, speed might not be an issue, but as an object grows in size, iteration speeds can become troublesome.
 
-Speedr addresses these issues and then some by introducing a new Map class.  
+Speedr addresses these issues and then some by introducing a new Map class.
 
 <a name='b' />
+
 Features
 ----
 * Blazing fast iteration on V8 platforms like Chrome and Node.js.  Huge speedups over the normal for..in object iteration are common.
@@ -40,6 +44,7 @@ Features
 * No external dependencies.
 
 <a name='c' />
+
 Usage
 ----
 Speedr currently introduces three new 'Map' classes:
@@ -47,12 +52,14 @@ Speedr currently introduces three new 'Map' classes:
 * Map
 	* An unsorted hash map that can only store one value per key (i.e. keys are *unique*).
 * SortedMap
-	* A hash map that sorts its keys upon insertion.  
+	* A hash map that sorts its keys upon insertion.
 * SortedMultiMap
 	* Sorted map that allows multiple entries to be inserted under the same key.
-	
+
 <a name='c1' />
+
 ### Construction
+
 Maps can be constructed in two ways
 
 ```javascript
@@ -69,7 +76,9 @@ var sortedMultiMap = new speedr.SortedMultiMap({a: 1, b: 2});
 The reason for the array style of construction is that object literal keys are always strings.  i.e. the key in {1: 'a'} is *not* the number 1, but the string '1'.  Thus, if you want to preserve the type of numbered keys, you must use the `new Map([1, 'a'], [2, 'b'])` style of construction rather than passing in an object.
 
 <a name='c2' />
+
 ### Getting, Setting and Inserting
+
 ```javascript
 console.log(map.get('a')); // 1
 
@@ -83,12 +92,12 @@ console.log(map.get(10)); // 'ten'
 console.log(map.get(20)); // 'twenty'
 
 // Map and SortedMap both use the set function.
-// Since SortedMultiMap doesn't overwrite old keys, it uses the 
+// Since SortedMultiMap doesn't overwrite old keys, it uses the
 // insert function instead.
 sortedMultiMap.insert({a: 3, b: 4});
 
-// Since keys in SortedMultiMap are not associated with any one 
-// value, there is no get function.  To access entries, we must 
+// Since keys in SortedMultiMap are not associated with any one
+// value, there is no get function.  To access entries, we must
 // iterate over them.
 sortedMultiMap.each(function(key, val) {
 	console.log(key + ' ' + val);
@@ -98,7 +107,7 @@ sortedMultiMap.each(function(key, val) {
 // b 2
 // b 4
 
-// Notice that the entries are sorted by key when we iterate and 
+// Notice that the entries are sorted by key when we iterate and
 // that there are two 'a' entries and two 'b' entries.
 
 // Let's try this with SortedMap:
@@ -113,6 +122,7 @@ sortedMap.each(function(key, val) {
 ```
 
 <a name='c3' />
+
 ### Removing
 
 Implemented only for Map:
@@ -124,7 +134,9 @@ console.log(map.get('a')); // undefined
 ```
 
 <a name='c4' />
+
 ### Length
+
 ```javascript
 // Maps keep track of their length and expose it as a .length
 // attribute.
@@ -134,6 +146,7 @@ console.log(sortedMultiMap.length); // 4
 ```
 
 <a name='c5' />
+
 ### Iterating
 All maps have a variety of iteration methods based on two main ones: each and iter.
 
@@ -152,7 +165,7 @@ map.each(function(key, val) {
 // b
 //20
 
-// The iter function is what each uses internally.  It works as 
+// The iter function is what each uses internally.  It works as
 // an iterator, returning values based on a numerical index.
 for (var i = 0; i < map.length; i++) {
 	// iter returns a [key, value] array for each item
@@ -168,6 +181,7 @@ for (var i = 0; i < map.length; i++) {
 ```
 
 <a name='c6' />
+
 ### Gratuitous Optimization
 For those times when you need to cut out all the cruft, you can use the Key/Val versions of the iteration functions in order to only retrieve those components of the entries.
 
@@ -183,6 +197,7 @@ for (var i = 0; i < map.length; i++) {
 ```
 
 <a name='c7' />
+
 ### Sorting
 Both SortedMap and SortedMultiMap sort their entries by key automatically upon insertion using an optimized binary search.  In order to use sorting effectively, however, it's necessary to be aware of a couple things:
 
@@ -191,10 +206,14 @@ Both SortedMap and SortedMultiMap sort their entries by key automatically upon i
 * Mixing key types can lead to strange behavior.  You should be able to mix integer and floating point numbers without a problem, but mixing strings and numbers is discouraged.  Feel free to experiment, however, as your results may vary.
 
 <a name='d' />
+
 Installation
 ----
+
 <a name='d1' />
+
 ### Node.js
+
 * [Install npm.](http://nodejs.org/#download) (it comes with Node.js)
 * Install speedr:
 	* In your project directory: `$ npm install speedr`
@@ -202,13 +221,17 @@ Installation
 * Require it: `var speedr = require('speedr');`
 
 <a name='d2' />
+
 ### Browser
+
 * Download [speedr.min.js.](https://raw.github.com/genericdave/speedr.js/master/speedr-min.js)
 * Include it: `<script src='lib/speedr.min.js'></script>`
 
 <a name='e' />
+
 Tests and Benchmarks
 ----
+
 * Go try out the [jsPerf benchmarks!](http://jsperf.com/speedr-js-vs-normal-object-iteration/2)
 * To run the tests on Node.js:
 	* Get Coffeescript: `$ npm -g install coffee-script`

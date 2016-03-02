@@ -1,10 +1,17 @@
 {
   "name": "speedr",
+  "version": "0.0.0-semantically-released",
   "description": "Improved javascript objects",
-  "version": "0.3.1",
-  "author": {
-    "name": "Dave Druelinger"
-  },
+  "author": [
+    {
+      "name": "Dave Druelinger"
+    },
+    {
+      "name": "Sasha Rudan",
+      "email": "mprinc@gmail.com",
+      "url": "https://github.com/mprinc"
+    }
+  ],
   "keywords": [
     "Speedr",
     "object",
@@ -14,7 +21,20 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/genericdave/speedr.js.git"
+    "url": "https://github.com/mprinc/mappp.git"
   },
-  "main": "index"
+  "main": "index",
+  "scripts": {
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "devDependencies": {
+    "commitizen": "^2.5.0",
+    "cz-conventional-changelog": "^1.1.5",
+    "semantic-release": "^4.3.5"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
